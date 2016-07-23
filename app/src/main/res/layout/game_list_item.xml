@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    >
+
+    <ImageView
+        android:id="@+id/imgGameIcon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@android:drawable/star_on"/>
+
+    <TextView
+        android:id="@+id/txtWinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imgGameIcon"
+        android:layout_toRightOf="@+id/imgGameIcon"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="Winner: Yves"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/txtDateWon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imgGameIcon"
+        android:layout_toRightOf="@+id/imgGameIcon"
+        android:layout_below="@+id/txtWinner"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="Date Won: July 23, 2016"
+        android:textSize="13sp"/>
+</RelativeLayout>
