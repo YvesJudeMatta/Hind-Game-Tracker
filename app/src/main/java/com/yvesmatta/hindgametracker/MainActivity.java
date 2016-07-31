@@ -1,7 +1,6 @@
 package com.yvesmatta.hindgametracker;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,26 +18,26 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getFragmentManager();
 
         // Add fragment to frgContainer and commit the transaction
-        GameListFragment gameListFragment = new GameListFragment();
-        fragmentManager.beginTransaction().add(R.id.frgContainer, gameListFragment).commit();
+        HindListFragment hindListFragment = new HindListFragment();
+        fragmentManager.beginTransaction().add(R.id.frgContainer, hindListFragment).commit();
     }
 
-    // Load the GameSetupFragment
+    // Load the HindSetupFragment
     public void loadGameSetupFragment(View view) {
         // Replace fragment in frgContainer with new fragment and commit the transaction
-        GameSetupFragment gameSetupFragment = new GameSetupFragment();
+        HindSetupFragment hindSetupFragment = new HindSetupFragment();
         fragmentManager.beginTransaction()
-                .replace(R.id.frgContainer, gameSetupFragment)
+                .replace(R.id.frgContainer, hindSetupFragment)
                 .addToBackStack(null)
                 .commit();
     }
 
-    // Load the GameSetupFragment
+    // Load the HindSetupFragment
     public void loadGamePlayFragment(View view) {
         // Replace fragment in frgContainer with new fragment and commit the transaction
-        GamePlayFragment gamePlayFragment = new GamePlayFragment();
+        HindPlayFragment hindPlayFragment = new HindPlayFragment();
         fragmentManager.beginTransaction()
-                .replace(R.id.frgContainer, gamePlayFragment)
+                .replace(R.id.frgContainer, hindPlayFragment)
                 .addToBackStack(null)
                 .commit();
     }

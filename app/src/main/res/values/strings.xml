@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">Hind Game Tracker</string>
 
-    <!-- GameSetupFragment -->
+    <!-- HindSetupFragment -->
     <string name="fragment_game_setup_name">Game Setup Fragment</string>
     <string name="fragment_game_setup_button">Load Game Play Fragment</string>
-    <!-- /GameSetupFragment -->
+    <!-- /HindSetupFragment -->
 
-    <!-- GameListFragment -->
+    <!-- HindListFragment -->
     <string name="fragment_game_list_name">Game List Fragment</string>
     <string name="fragment_game_list_button">Load Game Setup Fragment</string>
-    <!-- /GameListFragment -->
+    <!-- /HindListFragment -->
 
-    <!-- GamePlayFragment -->
+    <!-- HindPlayFragment -->
     <string name="fragment_game_play">Game Play Fragment</string>
-    <!-- /GamePlayFragment -->
+    <!-- /HindPlayFragment -->
 </resources>

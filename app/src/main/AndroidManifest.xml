@@ -15,6 +15,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".GameProvider"
+            android:authorities="com.yvesmatta.hindgametracker.gameprovider"
+            android:exported="false" />
+
+        <provider
+            android:name=".PlayerProvider"
+            android:authorities="com.yvesmatta.hindgametracker.playerprovider"
+            android:exported="false" />
     </application>
 
 </manifest>
