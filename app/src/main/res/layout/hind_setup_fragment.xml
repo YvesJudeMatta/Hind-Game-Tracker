@@ -1,19 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:padding="16dp"
+    tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/txtFragmentName"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvPlayersLabel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_game_setup_name"/>
+        android:text="@string/players"
+        android:textSize="22sp"
+        android:textColor="@color/colorText"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <EditText
+        android:id="@+id/etPlayerOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPlayersLabel"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/player_one"
+        android:textSize="16sp"
+        android:textColor="@color/colorText"
+        android:gravity="center"
+        android:inputType="text"
+        android:maxLength="15"/>
+
+    <EditText
+        android:id="@+id/etPlayerTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPlayerOne"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/player_two"
+        android:textSize="16sp"
+        android:textColor="@color/colorText"
+        android:gravity="center"
+        android:inputType="text"
+        android:maxLength="15"/>
+
+    <EditText
+        android:id="@+id/etPlayerThree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPlayerTwo"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/player_three"
+        android:textSize="16sp"
+        android:textColor="@color/colorText"
+        android:gravity="center"
+        android:inputType="text"
+        android:maxLength="15"/>
+
+    <EditText
+        android:id="@+id/etPlayerFour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPlayerThree"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/player_four"
+        android:textSize="16sp"
+        android:textColor="@color/colorText"
+        android:gravity="center"
+        android:inputType="text"
+        android:maxLength="15"/>
 
     <Button
         android:id="@+id/btnNextFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_game_setup_button"
-        android:onClick="loadGamePlayFragment"/>
+        android:layout_below="@+id/etPlayerFour"
+        android:onClick="loadGamePlayFragment"
+        android:text="@string/start_game"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorButtonText"
+        android:textSize="16sp"/>
 
-</LinearLayout>
+</RelativeLayout>
