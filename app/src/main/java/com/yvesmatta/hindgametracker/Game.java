@@ -4,12 +4,14 @@ import java.util.List;
 
 public class Game {
 
+    // Class variables
     private int id;
     private int numberOfPlayers;
     private List<Player> allPlayers;
     private Player winner;
     private boolean isCompleted;
 
+    // Constructor
     public Game(int numberOfPlayers, List<Player> allPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         this.allPlayers = allPlayers;
@@ -17,6 +19,7 @@ public class Game {
         this.isCompleted = false;
     }
 
+    // Getters and Setters
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }

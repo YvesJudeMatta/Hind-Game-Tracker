@@ -12,7 +12,7 @@ public class PlayerProvider extends ContentProvider {
 
     private static final String AUTHORITY = "com.yvesmatta.hindgametracker.playerprovider";
     private static final String BASE_PATH = "hind_players";
-    private static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 
     // Constants to identify the requested operation
     private static final int PLAYER = 1;
@@ -20,7 +20,7 @@ public class PlayerProvider extends ContentProvider {
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-    private static final String CONTENT_ITEM_TYPE = "Player";
+    public static final String CONTENT_ITEM_TYPE = "Player";
 
     static {
         uriMatcher.addURI(AUTHORITY, BASE_PATH, PLAYER);

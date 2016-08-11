@@ -17,5 +17,6 @@
 
     <!-- HindPlayFragment -->
     <string name="fragment_game_play">Game Play Fragment</string>
+    <string name="new_game">New Game</string>
     <!-- /HindPlayFragment -->
 </resources>
