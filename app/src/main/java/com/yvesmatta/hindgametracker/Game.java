@@ -13,6 +13,7 @@ public class Game {
 
     // Constructor
     public Game(int numberOfPlayers, List<Player> allPlayers) {
+        this.id = 0;
         this.numberOfPlayers = numberOfPlayers;
         this.allPlayers = allPlayers;
         this.winner = null;
@@ -20,6 +21,15 @@ public class Game {
     }
 
     // Getters and Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }

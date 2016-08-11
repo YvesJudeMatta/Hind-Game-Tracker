@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 public class GameProvider extends ContentProvider {
 
     private static final String AUTHORITY = "com.yvesmatta.hindgametracker.gameprovider";
-    private static final String BASE_PATH = "hind";
+    private static final String BASE_PATH = "hind_games";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 
     // Constants to identify the requested operation
