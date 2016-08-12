@@ -6,7 +6,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".HindSetupFragment">
 
     <TextView
         android:id="@+id/tvPlayersLabel"

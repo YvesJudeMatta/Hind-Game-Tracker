@@ -3,6 +3,8 @@ package com.yvesmatta.hindgametracker;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,9 @@ public class HindSetupFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.hind_setup_fragment, container, false);
 
+        // Show the back butting in the menu bar
+        showBackButton();
+
         // Retrieve views from layout
         etPlayerOne = (EditText) view.findViewById(R.id.etPlayerOne);
         etPlayerTwo = (EditText) view.findViewById(R.id.etPlayerTwo);
@@ -45,6 +50,12 @@ public class HindSetupFragment extends Fragment {
 
         // Return the view
         return view;
+    }
+
+    public void showBackButton() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     public Game setupGame() {

@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.CursorAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,9 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.hind_list_fragment, container, false);
 
+        // Hide the back button
+        hideBackButton();
+
         // Initialize the custom adapter
         cursorAdapter = new HindCursorAdapter(getActivity(), null, 0);
 
@@ -43,6 +47,12 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
 
         // Return the new created view
         return view;
+    }
+
+    public void hideBackButton() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
     }
 
     @Override
