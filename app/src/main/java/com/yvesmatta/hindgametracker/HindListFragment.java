@@ -18,6 +18,7 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
 
     private static final String TAG = HindListFragment.class.getSimpleName();
     private CursorAdapter cursorAdapter;
+    private boolean firstVisit;
 
     @Nullable
     @Override
@@ -37,7 +38,19 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
         // Initialize the loader
         getLoaderManager().initLoader(0, null, this);
 
+        // Set firstVisit to this fragment to true
+        firstVisit = true;
+
+        // Return the new created view
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (firstVisit) {
+            restartLoader();
+        }
     }
 
     private void restartLoader() {

@@ -2,25 +2,21 @@ package com.yvesmatta.hindgametracker;
 
 import android.app.FragmentManager;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity  {
-
+    // Fragments
     private FragmentManager fragmentManager;
     private HindListFragment hindListFragment;
     private HindSetupFragment hindSetupFragment;
     private HindPlayFragment hindPlayFragment;
 
+    // Game
     public Game game = null;
-    private List<Player> allPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +29,6 @@ public class MainActivity extends AppCompatActivity  {
         // Add fragment to frgContainer and commit the transaction
         hindListFragment = new HindListFragment();
         fragmentManager.beginTransaction().add(R.id.frgContainer, hindListFragment).commit();
-
-        // Initialize allPlayers
-        allPlayers = new ArrayList<>();
     }
 
     // Load the GameSetupFragment
@@ -54,7 +47,7 @@ public class MainActivity extends AppCompatActivity  {
         if (game != null) {
             // Load the database with the game and players
             loadDatabase();
-            
+
             // Replace fragment in frgContainer with new fragment and commit the transaction
             hindPlayFragment = new HindPlayFragment();
             fragmentManager.beginTransaction()
@@ -65,38 +58,29 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void loadDatabase() {
-        allPlayers = game.getAllPlayers();
-
         // insert players
-        Log.d("MainActivity", "Before insert player");
         insertPlayers();
-        Log.d("MainActivity", "After insert player");
 
         // insert game
-        Log.d("MainActivity", "Before insert game");
         insertGame();
-        Log.d("MainActivity", "After insert game");
     }
 
     private void insertPlayers() {
-        Log.d("MainActivity", "During insert player");
         for (int i = 0; i < game.getNumberOfPlayers(); i++) {
             // Load the content values with the player data
             ContentValues contentValues = new ContentValues();
-            contentValues.put(DBOpenHelper.PLAYER_NAME, allPlayers.get(i).getName());
-            contentValues.put(DBOpenHelper.PLAYER_TOTAL_SCORE, allPlayers.get(i).getTotalScore());
+            contentValues.put(DBOpenHelper.PLAYER_NAME, game.getAllPlayers().get(i).getName());
+            contentValues.put(DBOpenHelper.PLAYER_TOTAL_SCORE, game.getAllPlayers().get(i).getTotalScore());
             contentValues.put(DBOpenHelper.PLAYER_CREATED, true);
 
             // Insert the player into the database and set the id for the player
             Uri playerUri = getContentResolver().insert(PlayerProvider.CONTENT_URI, contentValues);
             if (playerUri != null)
-                allPlayers.get(i).setId(Integer.parseInt(playerUri.getLastPathSegment()));
+                game.getAllPlayers().get(i).setId(Integer.parseInt(playerUri.getLastPathSegment()));
         }
-        Log.d("MainActivity", "end of insert player");
     }
 
     private void insertGame() {
-        Log.d("MainActivity", "During insert game");
         // Load the content values with the game data
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBOpenHelper.GAME_PLAYER_COUNT, game.getNumberOfPlayers());
@@ -105,19 +89,17 @@ public class MainActivity extends AppCompatActivity  {
 
         // Load the player id if the players id is not 0
         if (game.getAllPlayers().get(0).getId() != 0)
-            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, allPlayers.get(0).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
         if (game.getAllPlayers().get(1).getId() != 0)
-            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, allPlayers.get(1).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
         if (game.getAllPlayers().get(2).getId() != 0)
-            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, allPlayers.get(2).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
         if (game.getAllPlayers().get(3).getId() != 0)
-            contentValues.put(DBOpenHelper.GAME_PLAYER_FOUR, allPlayers.get(3).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_FOUR, game.getAllPlayers().get(3).getId());
 
         // Insert the game into the database and set the id for the game
         Uri uriGame = getContentResolver().insert(GameProvider.CONTENT_URI, contentValues);
-        Log.d("MainActivity", uriGame.toString());
         if (uriGame != null)
             game.setId(Integer.parseInt(uriGame.getLastPathSegment()));
-        Log.d("MainActivity", "end of insert game");
     }
 }
