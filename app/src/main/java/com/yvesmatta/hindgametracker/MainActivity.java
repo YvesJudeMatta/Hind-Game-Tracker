@@ -2,17 +2,21 @@ package com.yvesmatta.hindgametracker;
 
 import android.app.FragmentManager;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+
     // Fragments
     private FragmentManager fragmentManager;
     private HindListFragment hindListFragment;
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         contentValues.put(DBOpenHelper.GAME_PLAYER_COMPLETED, false);
         contentValues.put(DBOpenHelper.GAME_CREATED, true);
 
-        // Load the player id if the players id is not 0
+        // Load the players into content values
         contentValues = loadPlayersInContentValues(contentValues, game.getNumberOfPlayers());
 
         // Insert the game into the database and set the id for the game
@@ -119,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ContentValues loadPlayersInContentValues(ContentValues contentValues, int numberOfPlayers) {
+        // Check how many plays there is and insert the number of players accordingly
         if (numberOfPlayers == 2) {
             contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
             contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());

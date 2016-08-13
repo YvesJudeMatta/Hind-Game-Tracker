@@ -18,5 +18,7 @@
     <!-- HindPlayFragment -->
     <string name="fragment_game_play">Game Play Fragment</string>
     <string name="new_game">New Game</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="all_games_deleted">All games deleted</string>
     <!-- /HindPlayFragment -->
 </resources>
