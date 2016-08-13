@@ -5,12 +5,14 @@ import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     // Fragments
     private FragmentManager fragmentManager;
     private HindListFragment hindListFragment;
@@ -108,18 +110,28 @@ public class MainActivity extends AppCompatActivity {
         contentValues.put(DBOpenHelper.GAME_CREATED, true);
 
         // Load the player id if the players id is not 0
-        if (game.getAllPlayers().get(0).getId() != 0)
-            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
-        if (game.getAllPlayers().get(1).getId() != 0)
-            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
-        if (game.getAllPlayers().get(2).getId() != 0)
-            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
-        if (game.getAllPlayers().get(3).getId() != 0)
-            contentValues.put(DBOpenHelper.GAME_PLAYER_FOUR, game.getAllPlayers().get(3).getId());
+        contentValues = loadPlayersInContentValues(contentValues, game.getNumberOfPlayers());
 
         // Insert the game into the database and set the id for the game
         Uri uriGame = getContentResolver().insert(GameProvider.CONTENT_URI, contentValues);
         if (uriGame != null)
             game.setId(Integer.parseInt(uriGame.getLastPathSegment()));
+    }
+
+    private ContentValues loadPlayersInContentValues(ContentValues contentValues, int numberOfPlayers) {
+        if (numberOfPlayers == 2) {
+            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
+        } else if (numberOfPlayers == 3) {
+            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
+        } else if (numberOfPlayers == 4) {
+            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_FOUR, game.getAllPlayers().get(3).getId());
+        }
+        return contentValues;
     }
 }
