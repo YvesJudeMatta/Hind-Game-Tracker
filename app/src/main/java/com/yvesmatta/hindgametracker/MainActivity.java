@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     // Fragments
     private FragmentManager fragmentManager;
@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Add fragment to frgContainer and commit the transaction
         hindListFragment = new HindListFragment();
-        fragmentManager.beginTransaction().add(R.id.frgContainer, hindListFragment).commit();
+        fragmentManager.beginTransaction()
+                .add(R.id.frgContainer, hindListFragment)
+                .commit();
     }
 
     @Override
@@ -57,13 +59,24 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (hindPlayFragment != null && hindPlayFragment.isVisible()) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frgContainer, hindListFragment)
+                    .commit();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     // Load the GameSetupFragment
     public void loadGameSetupFragment(View view) {
         // Replace fragment in frgContainer with new fragment and commit the transaction
         hindSetupFragment = new HindSetupFragment();
         fragmentManager.beginTransaction()
                 .replace(R.id.frgContainer, hindSetupFragment)
-                .addToBackStack(null)
+                .addToBackStack(hindListFragment.getClass().getName())
                 .commit();
     }
 
@@ -78,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             hindPlayFragment = new HindPlayFragment();
             fragmentManager.beginTransaction()
                     .replace(R.id.frgContainer, hindPlayFragment)
-                    .addToBackStack(null)
                     .commit();
         }
     }

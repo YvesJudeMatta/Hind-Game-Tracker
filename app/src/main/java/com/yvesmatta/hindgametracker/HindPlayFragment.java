@@ -20,4 +20,7 @@ public class HindPlayFragment extends Fragment {
         View view = inflater.inflate(R.layout.hind_play_fragment, container, false);
         return view;
     }
+
+
+
 }
