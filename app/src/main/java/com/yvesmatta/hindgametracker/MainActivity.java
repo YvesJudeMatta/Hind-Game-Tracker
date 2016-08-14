@@ -2,16 +2,12 @@ package com.yvesmatta.hindgametracker;
 
 import android.app.FragmentManager;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +17,9 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private HindListFragment hindListFragment;
     private HindSetupFragment hindSetupFragment;
-    private HindPlayFragment hindPlayFragment;
-
+    private HindScoreboardFragment hindScoreboardFragment;
     // Game
-    public Game game = null;
+    public static Game game = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (hindPlayFragment != null && hindPlayFragment.isVisible()) {
+        // Skip the hindSetupFragment when the hindScoreboardFragment is visible on back pressed
+        if (hindScoreboardFragment != null && hindScoreboardFragment.isVisible()) {
             fragmentManager.beginTransaction()
                     .replace(R.id.frgContainer, hindListFragment)
                     .commit();
@@ -88,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
             loadDatabase();
 
             // Replace fragment in frgContainer with new fragment and commit the transaction
-            hindPlayFragment = new HindPlayFragment();
+            hindScoreboardFragment = new HindScoreboardFragment();
             fragmentManager.beginTransaction()
-                    .replace(R.id.frgContainer, hindPlayFragment)
+                    .replace(R.id.frgContainer, hindScoreboardFragment)
                     .commit();
         }
     }
@@ -151,4 +147,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return contentValues;
     }
+
 }

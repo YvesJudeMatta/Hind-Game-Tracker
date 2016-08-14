@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:padding="16dp"
+    android:padding="@dimen/activity_all_margin"
     tools:context=".HindSetupFragment">
 
     <TextView
@@ -30,7 +30,7 @@
         android:textColor="@color/colorText"
         android:gravity="center"
         android:inputType="text"
-        android:maxLength="15"/>
+        android:maxLength="10"/>
 
     <EditText
         android:id="@+id/etPlayerTwo"
@@ -44,7 +44,7 @@
         android:textColor="@color/colorText"
         android:gravity="center"
         android:inputType="text"
-        android:maxLength="15"/>
+        android:maxLength="10"/>
 
     <EditText
         android:id="@+id/etPlayerThree"
@@ -58,7 +58,7 @@
         android:textColor="@color/colorText"
         android:gravity="center"
         android:inputType="text"
-        android:maxLength="15"/>
+        android:maxLength="10"/>
 
     <EditText
         android:id="@+id/etPlayerFour"
@@ -72,7 +72,7 @@
         android:textColor="@color/colorText"
         android:gravity="center"
         android:inputType="text"
-        android:maxLength="15"/>
+        android:maxLength="10"/>
 
     <Button
         android:id="@+id/btnNextFragment"

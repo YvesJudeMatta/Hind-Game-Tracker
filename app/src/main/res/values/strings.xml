@@ -3,6 +3,9 @@
 
     <!-- HindListFragment -->
     <string name="fragment_game_list_name">Game List Fragment</string>
+    <string name="all_games_deleted">All games deleted</string>
+    <string name="new_game">New Game</string>
+    <string name="are_you_sure">Are you sure?</string>
     <!-- /HindListFragment -->
 
     <!-- HindSetupFragment -->
@@ -12,13 +15,12 @@
     <string name="player_two">Player Two</string>
     <string name="player_three">Player Three</string>
     <string name="player_four">Player Four</string>
-    <string name="start_game">Start Game!</string>
+    <string name="start_game">Start Game</string>
     <!-- /HindSetupFragment -->
 
-    <!-- HindPlayFragment -->
-    <string name="fragment_game_play">Game Play Fragment</string>
-    <string name="new_game">New Game</string>
-    <string name="are_you_sure">Are you sure?</string>
-    <string name="all_games_deleted">All games deleted</string>
-    <!-- /HindPlayFragment -->
+    <!-- HindScoreboardFragment -->
+    <string name="fragment_game_scoreboard">Game Scoreboard Fragment</string>
+    <string name="scoreboard_player_names_row">PlayerNamesRow</string>
+    <string name="scoreboard_player_one_name">PlayerOneName</string>
+    <!-- /HindScoreboardFragment -->
 </resources>
