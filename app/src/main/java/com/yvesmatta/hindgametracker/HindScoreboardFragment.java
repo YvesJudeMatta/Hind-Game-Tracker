@@ -1,10 +1,12 @@
 package com.yvesmatta.hindgametracker;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
@@ -19,7 +21,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
 
 public class HindScoreboardFragment extends Fragment {
 
@@ -27,7 +29,6 @@ public class HindScoreboardFragment extends Fragment {
     private View view;
     private TableLayout tlScoreBoard;
     private TableLayout tlTotalScores;
-    private TableRow.LayoutParams trLPMM;
     private TableRow.LayoutParams trLPWW;
     private TableRow.LayoutParams trLPMW;
 
@@ -48,7 +49,6 @@ public class HindScoreboardFragment extends Fragment {
         tlTotalScores = (TableLayout) view.findViewById(R.id.tlTotalScores);
 
         // Define layout params
-        trLPMM = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
         trLPWW = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         trLPMW = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
@@ -196,8 +196,9 @@ public class HindScoreboardFragment extends Fragment {
 
                 // Make the button invisible
                 view.setVisibility(View.INVISIBLE);
-
-                // Create a dialog to show the winner
+                
+                // Update winner
+                showWinningPlayersDialog();
             } else {
                 // Check if its the second last round
                 if(round == MAX_ROUNDS -1) {
@@ -218,6 +219,82 @@ public class HindScoreboardFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), R.string.please_fill_in_all_fields, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void showWinningPlayersDialog() {
+        // Find the winning players
+        ArrayList<Player> winningPlayers = findWinners();
+
+        // If there are winners
+        if (winningPlayers.size() >= 0) {
+            // Create a DialogInterface OnClickListener
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int button) {
+                    if (button == DialogInterface.BUTTON_POSITIVE) {
+                    }
+                }
+            };
+
+            String msg = buildWinningPlayersMessage(winningPlayers);
+
+            // Build the dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(msg)
+                    .setPositiveButton(R.string.okay, dialogClickListener)
+                    .show();
+        }
+    }
+
+    private String buildWinningPlayersMessage(ArrayList<Player> winningPlayers) {
+        // Create the string builder instance
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // Loop through the winning players and build the winning string
+        for (int i = 0; i < winningPlayers.size(); i++) {
+            if (i == 0) {
+                stringBuilder.append(winningPlayers.get(i).getName());
+            } else {
+                String grammer = (i == winningPlayers.size()-1) ? " and " : ", ";
+                stringBuilder.append(grammer);
+                stringBuilder.append(winningPlayers.get(i).getName());
+            }
+        }
+
+        // Check the size of the winning players to see if the players tied
+        if (winningPlayers.size() > 1){
+            stringBuilder.append(" tied the game!");
+        } else {
+            stringBuilder.append(" won the game!");
+        }
+
+        // Return the string
+        return stringBuilder.toString();
+    }
+
+    private ArrayList<Player> findWinners() {
+        // Create an array list to hold all the winning players
+        ArrayList<Player> winningPlayers = new ArrayList<>();
+        int winningScore = 0;
+
+        // Loop through all the players and find the best total score
+        for (int i = 1; i <= game.getNumberOfPlayers(); i++){
+            Player player = game.getAllPlayers().get(i-1);
+            if (player.getTotalScore() > winningScore) {
+                winningScore = player.getTotalScore();
+            }
+        }
+
+        // Loop through all the players and
+        for (int i = 0; i < game.getNumberOfPlayers(); i++){
+            Player player = game.getAllPlayers().get(i);
+            if (player.getTotalScore() == winningScore) {
+                winningPlayers.add(player);
+            }
+        }
+
+        // Return the winning players
+        return  winningPlayers;
     }
 
     private void greyOutRoundRow(int round) {

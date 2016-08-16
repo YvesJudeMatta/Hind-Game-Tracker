@@ -25,5 +25,6 @@
     <string name="plus">+</string>
     <string name="finish">Finish</string>
     <string name="please_fill_in_all_fields">Please fill in all fields</string>
+    <string name="okay">Okay</string>
     <!-- /HindScoreboardFragment -->
 </resources>
