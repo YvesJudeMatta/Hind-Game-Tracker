@@ -22,5 +22,8 @@
     <string name="fragment_game_scoreboard">Game Scoreboard Fragment</string>
     <string name="scoreboard_player_names_row">PlayerNamesRow</string>
     <string name="scoreboard_player_one_name">PlayerOneName</string>
+    <string name="plus">+</string>
+    <string name="finish">Finish</string>
+    <string name="please_fill_in_all_fields">Please fill in all fields</string>
     <!-- /HindScoreboardFragment -->
 </resources>

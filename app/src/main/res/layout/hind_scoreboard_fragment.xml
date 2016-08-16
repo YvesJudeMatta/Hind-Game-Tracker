@@ -21,12 +21,21 @@
 
         </TableLayout>
 
+        <TableLayout
+            android:id="@+id/tlTotalScores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1,2,3,4,5">
+
+        </TableLayout>
+
         <Button
             android:id="@+id/btnFinish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etPlayerFour"
-            android:text="Finish"
+            android:onClick="fragmentAddRound"
+            android:text="@string/plus"
             android:background="@color/colorAccent"
             android:textColor="@color/colorButtonText"
             android:textSize="16sp"/>

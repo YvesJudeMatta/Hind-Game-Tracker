@@ -38,4 +38,8 @@ public class Player {
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
+
+    public void calculateTotalScore(int score) {
+        this.totalScore += score;
+    }
 }

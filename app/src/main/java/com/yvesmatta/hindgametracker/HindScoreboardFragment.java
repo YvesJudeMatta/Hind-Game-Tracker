@@ -1,6 +1,7 @@
 package com.yvesmatta.hindgametracker;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,10 +12,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -23,11 +26,15 @@ public class HindScoreboardFragment extends Fragment {
     private static final String TAG = HindScoreboardFragment.class.getSimpleName();
     private View view;
     private TableLayout tlScoreBoard;
+    private TableLayout tlTotalScores;
     private TableRow.LayoutParams trLPMM;
     private TableRow.LayoutParams trLPWW;
     private TableRow.LayoutParams trLPMW;
 
     private Game game;
+    private int round;
+
+    private static final int MAX_ROUNDS = 3;
 
     @Nullable
     @Override
@@ -36,8 +43,9 @@ public class HindScoreboardFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.hind_scoreboard_fragment, container, false);
 
-        // Retrieve the view for the table layout
+        // Retrieve the views for the table layout
         tlScoreBoard = (TableLayout) view.findViewById(R.id.tlScoreBoard);
+        tlTotalScores = (TableLayout) view.findViewById(R.id.tlTotalScores);
 
         // Define layout params
         trLPMM = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
@@ -46,6 +54,9 @@ public class HindScoreboardFragment extends Fragment {
 
         // Retrieve the game from the main activity
         game = MainActivity.game;
+
+        // Define round
+        round = 1;
 
         // Create the score layout
         createScoreLayout();
@@ -58,11 +69,9 @@ public class HindScoreboardFragment extends Fragment {
         createPlayerNamesRow();
 
         // Create round score row
-        for (int round = 1; round <= 8; round++){
-            createRoundRow(round);
-        }
+        createRoundRow();
 
-        // Create the total score row
+        // Create total score row
         createTotalScoreRow();
     }
 
@@ -99,7 +108,7 @@ public class HindScoreboardFragment extends Fragment {
         tlScoreBoard.addView(trPlayerNamesRow);
     }
 
-    private void createRoundRow(int round) {
+    private void createRoundRow() {
         // Create the row
         TableRow trPlayerScoresRow = new TableRow(getActivity());
         trPlayerScoresRow.setLayoutParams(trLPMW);
@@ -139,11 +148,12 @@ public class HindScoreboardFragment extends Fragment {
         tlScoreBoard.addView(trPlayerScoresRow);
     }
 
+
     private void createTotalScoreRow() {
         // Create the row
         TableRow trPlayerTotalScoresRow = new TableRow(getActivity());
         trPlayerTotalScoresRow.setLayoutParams(trLPMW);
-        trPlayerTotalScoresRow.setTag("TotalScores");
+        trPlayerTotalScoresRow.setTag("TotalScoresRow");
         trPlayerTotalScoresRow.setPadding(
                 0, (int) getResources().getDimension(R.dimen.table_row_vertical_margin),
                 0, (int) getResources().getDimension(R.dimen.table_row_vertical_margin));
@@ -151,10 +161,6 @@ public class HindScoreboardFragment extends Fragment {
         // Create the views within the row
         TextView tvTotal = new TextView(getActivity());
         tvTotal.setLayoutParams(trLPWW);
-        tvTotal.setTag("TotalScoreLabel");
-        tvTotal.setText("total");
-        tvTotal.setTypeface(null, Typeface.BOLD);
-        tvTotal.setGravity(Gravity.CENTER);
 
         // Add the round label to the row
         trPlayerTotalScoresRow.addView(tvTotal);
@@ -173,6 +179,81 @@ public class HindScoreboardFragment extends Fragment {
         }
 
         // Add the row to the table layout
-        tlScoreBoard.addView(trPlayerTotalScoresRow);
+        tlTotalScores.addView(trPlayerTotalScoresRow);
+    }
+
+    public void addRound(View view) {
+        // Check if the row is validated
+        if (validateRow()) {
+
+            // Update total score row
+            updateTotalScoreRow();
+
+            // Check which if its the last round
+            if (round == MAX_ROUNDS) {
+                // Grey out the current round
+                greyOutRoundRow(round);
+
+                // Make the button invisible
+                view.setVisibility(View.INVISIBLE);
+
+                // Create a dialog to show the winner
+            } else {
+                // Check if its the second last round
+                if(round == MAX_ROUNDS -1) {
+                    // Change the text of the button
+                    Button btnFinish = (Button) view.findViewById(R.id.btnFinish);
+                    btnFinish.setText(R.string.finish);
+                }
+
+                // Increase the round
+                round++;
+
+                // Create the round row
+                createRoundRow();
+
+                // Grey out the previous row
+                greyOutRoundRow(round - 1);
+            }
+        } else {
+            Toast.makeText(getActivity(), R.string.please_fill_in_all_fields, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void greyOutRoundRow(int round) {
+        for (int i = 1; i <= game.getNumberOfPlayers(); i++){
+            EditText etPlayer = (EditText) view.findViewWithTag("Round" + round + "Player" + i);
+            etPlayer.setBackgroundColor(Color.TRANSPARENT);
+            etPlayer.setTextColor(Color.GRAY);
+        }
+    }
+
+    private boolean validateRow() {
+        for (int i = 1; i <= game.getNumberOfPlayers(); i++){
+            EditText etPlayer = (EditText) view.findViewWithTag("Round" + round + "Player" + i);
+            String text = etPlayer.getText().toString();
+            if (text.equalsIgnoreCase("") || text.contains(" ")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void updateTotalScoreRow() {
+        for (int i = 1; i <= game.getNumberOfPlayers(); i++) {
+            // Update the total score in the Player object
+            updateTotalScore(i);
+
+            // Update the total score in the view
+            TextView tvPlayerScore = (TextView) view.findViewWithTag("Player" + i + "Score");
+            Log.d(TAG, game.getAllPlayers().get(i-1).getTotalScore() + "");
+            tvPlayerScore.setText(game.getAllPlayers().get(i-1).getTotalScore() + "");
+        }
+    }
+
+    private void updateTotalScore(int playerIndex) {
+        EditText etPlayer = (EditText) view.findViewWithTag("Round" + round + "Player" + playerIndex);
+        int roundScore = Integer.parseInt(etPlayer.getText().toString());
+        game.getAllPlayers().get(playerIndex-1).calculateTotalScore(roundScore);
     }
 }

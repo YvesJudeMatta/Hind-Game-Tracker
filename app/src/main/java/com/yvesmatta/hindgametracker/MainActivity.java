@@ -91,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void fragmentAddRound(View view) {
+        hindScoreboardFragment.addRound(view);
+    }
+
     private void loadDatabase() {
         // insert players
         insertPlayers();
