@@ -1,9 +1,11 @@
 package com.yvesmatta.hindgametracker;
 
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +14,9 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,7 +34,7 @@ public class HindScoreboardFragment extends Fragment {
     private View view;
     private TableLayout tlScoreBoard;
     private TableLayout tlTotalScores;
-    private TableRow.LayoutParams trLPWW;
+    private TableRow.LayoutParams trLPWWHalfWeight;
     private TableRow.LayoutParams trLPWWOneWeight;
     private TableRow.LayoutParams trLPMW;
 
@@ -50,7 +55,7 @@ public class HindScoreboardFragment extends Fragment {
         tlTotalScores = (TableLayout) view.findViewById(R.id.tlTotalScores);
 
         // Define layout params
-        trLPWW = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        trLPWWHalfWeight = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.2f);
         trLPWWOneWeight = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f);
         trLPMW = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
@@ -88,7 +93,8 @@ public class HindScoreboardFragment extends Fragment {
 
         // Create the views within the row
         TextView tvBlank = new TextView(getActivity());
-        tvBlank.setLayoutParams(trLPWW);
+        tvBlank.setLayoutParams(trLPWWHalfWeight);
+        tvBlank.setText(" ");
 
         // Add blank view to row
         trPlayerNamesRow.addView(tvBlank);
@@ -121,7 +127,7 @@ public class HindScoreboardFragment extends Fragment {
 
         // Create the views within the row
         TextView tvRound = new TextView(getActivity());
-        tvRound.setLayoutParams(trLPWW);
+        tvRound.setLayoutParams(trLPWWHalfWeight);
         tvRound.setTag("Round" + round + "Label");
         tvRound.setText(round + "");
         tvRound.setTypeface(null, Typeface.BOLD);
@@ -162,7 +168,8 @@ public class HindScoreboardFragment extends Fragment {
 
         // Create the views within the row
         TextView tvTotal = new TextView(getActivity());
-        tvTotal.setLayoutParams(trLPWW);
+        tvTotal.setLayoutParams(trLPWWHalfWeight);
+        tvTotal.setText(" ");
 
         // Add the round label to the row
         trPlayerTotalScoresRow.addView(tvTotal);
@@ -201,6 +208,9 @@ public class HindScoreboardFragment extends Fragment {
                 
                 // Update winner
                 showWinningPlayersDialog();
+
+                // Update game to completed
+                game.setCompleted(true);
             } else {
                 // Check if its the second last round
                 if(round == MAX_ROUNDS -1) {
@@ -334,5 +344,72 @@ public class HindScoreboardFragment extends Fragment {
         EditText etPlayer = (EditText) view.findViewWithTag("Round" + round + "Player" + playerIndex);
         int roundScore = Integer.parseInt(etPlayer.getText().toString());
         game.getAllPlayers().get(playerIndex-1).calculateTotalScore(roundScore);
+    }
+
+    public boolean onBackPressed() {
+        if (game.isCompleted()) {
+            loadDatabase();
+        }
+        return true;
+    }
+
+    private void loadDatabase() {
+        // insert players
+        insertPlayers();
+
+        // insert game
+        insertGame();
+    }
+
+    private void insertPlayers() {
+        for (int i = 0; i < game.getNumberOfPlayers(); i++) {
+            // Load the content values with the player data
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DBOpenHelper.PLAYER_NAME, game.getAllPlayers().get(i).getName());
+            contentValues.put(DBOpenHelper.PLAYER_TOTAL_SCORE, game.getAllPlayers().get(i).getTotalScore());
+            contentValues.put(DBOpenHelper.PLAYER_CREATED, true);
+
+            // Insert the player into the database and set the id for the player
+            Uri playerUri = getActivity().getContentResolver().insert(PlayerProvider.CONTENT_URI, contentValues);
+            if (playerUri != null)
+                game.getAllPlayers().get(i).setId(Integer.parseInt(playerUri.getLastPathSegment()));
+        }
+    }
+
+    private void insertGame() {
+        // Load the content values with the game data
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBOpenHelper.GAME_PLAYER_COUNT, game.getNumberOfPlayers());
+        if (game.getWinner() != null) {
+            contentValues.put(DBOpenHelper.GAME_PLAYER_WINNER, game.getWinner().getId());
+        }
+        contentValues.put(DBOpenHelper.GAME_PLAYER_COMPLETED, game.isCompleted());
+        contentValues.put(DBOpenHelper.GAME_CREATED, true);
+
+        // Load the players into content values
+        contentValues = loadPlayersInContentValues(contentValues, game.getNumberOfPlayers());
+
+        // Insert the game into the database and set the id for the game
+        Uri uriGame = getActivity().getContentResolver().insert(GameProvider.CONTENT_URI, contentValues);
+        if (uriGame != null)
+            game.setId(Integer.parseInt(uriGame.getLastPathSegment()));
+    }
+
+    private ContentValues loadPlayersInContentValues(ContentValues contentValues, int numberOfPlayers) {
+        // Check how many plays there is and insert the number of players accordingly
+        if (numberOfPlayers == 2) {
+            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
+        } else if (numberOfPlayers == 3) {
+            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
+        } else if (numberOfPlayers == 4) {
+            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_FOUR, game.getAllPlayers().get(3).getId());
+        }
+        return contentValues;
     }
 }

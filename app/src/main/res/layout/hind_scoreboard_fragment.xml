@@ -15,19 +15,15 @@
 
         <TableLayout
             android:id="@+id/tlScoreBoard"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1,2,3,4,5">
+            android:layout_height="wrap_content">
 
         </TableLayout>
 
         <TableLayout
             android:id="@+id/tlTotalScores"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1,2,3,4,5">
+            android:layout_height="wrap_content">
 
         </TableLayout>
 

@@ -58,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         // Skip the hindSetupFragment when the hindScoreboardFragment is visible on back pressed
         if (hindScoreboardFragment != null && hindScoreboardFragment.isVisible()) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.frgContainer, hindListFragment)
-                    .commit();
+            if (hindScoreboardFragment.onBackPressed()) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frgContainer, hindListFragment)
+                        .commit();
+            }
         } else {
             super.onBackPressed();
         }
@@ -80,9 +82,6 @@ public class MainActivity extends AppCompatActivity {
     public void loadGamePlayFragment(View view) {
         game = hindSetupFragment.setupGame();
         if (game != null) {
-            // Load the database with the game and players
-            //loadDatabase();
-
             // Replace fragment in frgContainer with new fragment and commit the transaction
             hindScoreboardFragment = new HindScoreboardFragment();
             fragmentManager.beginTransaction()
@@ -93,63 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void fragmentAddRound(View view) {
         hindScoreboardFragment.addRound(view);
-    }
-
-    private void loadDatabase() {
-        // insert players
-        insertPlayers();
-
-        // insert game
-        insertGame();
-    }
-
-    private void insertPlayers() {
-        for (int i = 0; i < game.getNumberOfPlayers(); i++) {
-            // Load the content values with the player data
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(DBOpenHelper.PLAYER_NAME, game.getAllPlayers().get(i).getName());
-            contentValues.put(DBOpenHelper.PLAYER_TOTAL_SCORE, game.getAllPlayers().get(i).getTotalScore());
-            contentValues.put(DBOpenHelper.PLAYER_CREATED, true);
-
-            // Insert the player into the database and set the id for the player
-            Uri playerUri = getContentResolver().insert(PlayerProvider.CONTENT_URI, contentValues);
-            if (playerUri != null)
-                game.getAllPlayers().get(i).setId(Integer.parseInt(playerUri.getLastPathSegment()));
-        }
-    }
-
-    private void insertGame() {
-        // Load the content values with the game data
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DBOpenHelper.GAME_PLAYER_COUNT, game.getNumberOfPlayers());
-        contentValues.put(DBOpenHelper.GAME_PLAYER_COMPLETED, false);
-        contentValues.put(DBOpenHelper.GAME_CREATED, true);
-
-        // Load the players into content values
-        contentValues = loadPlayersInContentValues(contentValues, game.getNumberOfPlayers());
-
-        // Insert the game into the database and set the id for the game
-        Uri uriGame = getContentResolver().insert(GameProvider.CONTENT_URI, contentValues);
-        if (uriGame != null)
-            game.setId(Integer.parseInt(uriGame.getLastPathSegment()));
-    }
-
-    private ContentValues loadPlayersInContentValues(ContentValues contentValues, int numberOfPlayers) {
-        // Check how many plays there is and insert the number of players accordingly
-        if (numberOfPlayers == 2) {
-            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
-        } else if (numberOfPlayers == 3) {
-            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
-        } else if (numberOfPlayers == 4) {
-            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_FOUR, game.getAllPlayers().get(3).getId());
-        }
-        return contentValues;
     }
 
 }
