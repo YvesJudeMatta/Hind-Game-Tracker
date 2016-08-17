@@ -29,5 +29,6 @@
     <string name="okay">Okay</string>
     <string name="discard_game">Are you sure you want to discard this game?</string>
     <string name="tie">Tie!</string>
+    <string name="update">Update</string>
     <!-- /HindScoreboardFragment -->
 </resources>

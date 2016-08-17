@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private HindListFragment hindListFragment;
     private HindSetupFragment hindSetupFragment;
     private HindScoreboardFragment hindScoreboardFragment;
+
     // Game
     public static Game game = null;
 
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Load the GameSetupFragment
+    // Load the GameSetupFragment from list view
     public void loadGameSetupFragment(View view) {
         // Replace fragment in frgContainer with new fragment and commit the transaction
         hindSetupFragment = new HindSetupFragment();
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    // Load the GamePlayFragment
+    // Load the GamePlayFragment from setup view
     public void loadGamePlayFragment(View view) {
         game = hindSetupFragment.setupGame();
         if (game != null) {

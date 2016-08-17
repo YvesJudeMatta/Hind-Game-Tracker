@@ -41,6 +41,15 @@ public class HindScoreboardFragment extends Fragment {
     private Game game;
     private int round;
 
+    public HindScoreboardFragment() {
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
@@ -68,6 +77,51 @@ public class HindScoreboardFragment extends Fragment {
         createScoreLayout();
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_scoreboard, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_update:
+                updateScores();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void updateScores() {
+        // Reset player total scores
+        resetPlayerTotalScores();
+
+        // foreach round, check the value and recalculate the total score
+        for (int r = 1; r < round; r++) {
+            if (validateRoundRow(r)) {
+                updateTotalScoreRow(r);
+            }
+        }
+
+        // If the game is complete, show the winner
+        if (game.isCompleted()){
+            // Update winner
+            ArrayList<Player> winningPlayers = showWinningPlayersDialog();
+            if (winningPlayers.size() == 1) {
+                game.setWinner(winningPlayers.get(0));
+            }
+        }
+    }
+
+    private void resetPlayerTotalScores() {
+        for (int p = 0; p < game.getNumberOfPlayers(); p++) {
+            game.getAllPlayers().get(p).setTotalScore(0);
+        }
     }
 
     private void createScoreLayout() {
@@ -192,10 +246,10 @@ public class HindScoreboardFragment extends Fragment {
 
     public void addRound(View view) {
         // Check if the row is validated
-        if (validateRow()) {
+        if (validateRoundRow(round)) {
 
             // Update total score row
-            updateTotalScoreRow();
+            updateTotalScoreRow(round);
 
             // Check which if its the last round
             if (round == Game.MAX_ROUNDS) {
@@ -230,8 +284,6 @@ public class HindScoreboardFragment extends Fragment {
                 // Grey out the previous row
                 greyOutRoundRow(round - 1);
             }
-        } else {
-            Toast.makeText(getActivity(), R.string.please_fill_in_all_fields, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -321,21 +373,22 @@ public class HindScoreboardFragment extends Fragment {
         }
     }
 
-    private boolean validateRow() {
+    private boolean validateRoundRow(int round) {
         for (int i = 1; i <= game.getNumberOfPlayers(); i++){
             EditText etPlayer = (EditText) view.findViewWithTag("Round" + round + "Player" + i);
             String text = etPlayer.getText().toString();
             if (text.equalsIgnoreCase("") || text.contains(" ")) {
+                Toast.makeText(getActivity(), R.string.please_fill_in_all_fields, Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
         return true;
     }
 
-    private void updateTotalScoreRow() {
+    private void updateTotalScoreRow(int round) {
         for (int i = 1; i <= game.getNumberOfPlayers(); i++) {
             // Update the total score in the Player object
-            updateTotalScore(i);
+            updateTotalScore(i, round);
 
             // Update the total score in the view
             TextView tvPlayerScore = (TextView) view.findViewWithTag("Player" + i + "Score");
@@ -344,7 +397,7 @@ public class HindScoreboardFragment extends Fragment {
         }
     }
 
-    private void updateTotalScore(int playerIndex) {
+    private void updateTotalScore(int playerIndex, int round) {
         EditText etPlayer = (EditText) view.findViewWithTag("Round" + round + "Player" + playerIndex);
         int roundScore = Integer.parseInt(etPlayer.getText().toString());
         game.getAllPlayers().get(playerIndex-1).calculateTotalScore(roundScore);
