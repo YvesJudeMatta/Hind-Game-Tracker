@@ -1,3 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="894922f67adeaaef51f077a29e315da21a3382d3">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.0.0_343effb88b6ccb054973b7d46cd7b9d9f8d34504\classes.dex" />
+    </item>
+    <item
+        jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="1012065f86540fc1aefd83b9abce133806e4d828">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_819b9a860d1092f02a6047612353eb4d9e3391ad\classes.dex" />
+    </item>
+    <item
+        jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.0.0_1b180cc0976260d3944444bd48c875d70e4da23b\classes.dex" />
+    </item>
+    <item
+        jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="9706d06ac58a9f1ccff245ef0bb36edfac1b6249">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c16b81f04e8d5947c597be111d0e94248834a8b4\classes.dex" />
+    </item>
+    <item
+        jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.0.0_d7920f735b2f89fc1f01c47f7e6686a29a00cb5b\classes.dex" />
+    </item>
+    <item
+        jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_3c4c05cf216ca15fc0e9aa9fc335b724827177b9\classes.dex" />
+    </item>
+    <item
+        jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\exploded-aar\com.android.support\design\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="fc29308a7a8f6d4407b34634eb48fb8b817f9b23">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.0.0_da76de6b4b8f797db9f9b31ffd95e2301dc7bd96\classes.dex" />
+    </item>
+    <item
+        jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.0.0_ced6e93d775604532d5b6988ff251d16e3ab9b71\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\yvesm\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\24.0.0\2943c74db6d4346ab8c6531adac91fa05c137c40\support-annotations-24.0.0.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.0.0_f910ffe9d91c73caf6a95fb08cd3529ef1233b87\classes.dex" />
+    </item>
+    <item
+        jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.0"
+        sha1="0874286cc2fd88d54fdf130e9d5372730da6de97">
+        <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.0.0_94e51577693f566b6c1f9bbce8ca358132a644aa\classes.dex" />
+    </item>
+
+</items>

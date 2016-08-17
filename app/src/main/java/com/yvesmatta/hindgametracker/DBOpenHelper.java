@@ -32,7 +32,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                     PLAYER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     PLAYER_NAME + " TEXT NOT NULL, " +
                     PLAYER_TOTAL_SCORE + " INTEGER, " +
-                    PLAYER_CREATED + "  TEXT default CURRENT_TIMESTAMP" +
+                    PLAYER_CREATED + "  TEXT" +
                     ")";
 
     // game
@@ -70,7 +70,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                     GAME_PLAYER_FOUR + " TEXT, " +
                     GAME_PLAYER_WINNER + " TEXT, " +
                     GAME_PLAYER_COMPLETED + " BIT, " +
-                    GAME_CREATED + " TEXT default CURRENT_TIMESTAMP, " +
+                    GAME_CREATED + " TEXT, " +
                     " FOREIGN KEY(" + GAME_PLAYER_ONE + ") REFERENCES " + TABLE_PLAYER + "("+ PLAYER_ID +"), " +
                     " FOREIGN KEY(" + GAME_PLAYER_TWO + ") REFERENCES " + TABLE_PLAYER + "("+ PLAYER_ID +"), " +
                     " FOREIGN KEY(" + GAME_PLAYER_THREE + ") REFERENCES " + TABLE_PLAYER + "("+ PLAYER_ID +"), " +

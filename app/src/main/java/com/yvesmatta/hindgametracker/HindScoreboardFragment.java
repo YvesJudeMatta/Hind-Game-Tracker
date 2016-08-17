@@ -372,6 +372,7 @@ public class HindScoreboardFragment extends Fragment {
             ContentValues contentValues = new ContentValues();
             contentValues.put(DBOpenHelper.PLAYER_NAME, game.getAllPlayers().get(i).getName());
             contentValues.put(DBOpenHelper.PLAYER_TOTAL_SCORE, game.getAllPlayers().get(i).getTotalScore());
+            contentValues.put(DBOpenHelper.PLAYER_CREATED, System.currentTimeMillis());
 
             // Insert the player into the database and set the id for the player
             Uri playerUri = getActivity().getContentResolver().insert(PlayerProvider.CONTENT_URI, contentValues);
@@ -387,6 +388,7 @@ public class HindScoreboardFragment extends Fragment {
         if (game.getWinner() != null) {
             contentValues.put(DBOpenHelper.GAME_PLAYER_WINNER, game.getWinner().getName());
         }
+        contentValues.put(DBOpenHelper.GAME_CREATED, System.currentTimeMillis());
         contentValues.put(DBOpenHelper.GAME_PLAYER_COMPLETED, game.isCompleted());
 
         // Load the players into content values
