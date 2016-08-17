@@ -74,11 +74,25 @@
         android:inputType="text"
         android:maxLength="10"/>
 
+    <EditText
+        android:id="@+id/etPlayerFive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPlayerFour"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/player_five"
+        android:textSize="16sp"
+        android:textColor="@color/colorText"
+        android:gravity="center"
+        android:inputType="text"
+        android:maxLength="10"/>
+
     <Button
         android:id="@+id/btnNextFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPlayerFour"
+        android:layout_below="@+id/etPlayerFive"
         android:onClick="loadGamePlayFragment"
         android:text="@string/start_game"
         android:background="@color/colorAccent"

@@ -23,6 +23,7 @@ public class HindSetupFragment extends Fragment {
     private EditText etPlayerTwo;
     private EditText etPlayerThree;
     private EditText etPlayerFour;
+    private EditText etPlayerFive;
 
     private int numberOfPlayers;
     private List<Player> allPlayers;
@@ -44,6 +45,7 @@ public class HindSetupFragment extends Fragment {
         etPlayerTwo = (EditText) view.findViewById(R.id.etPlayerTwo);
         etPlayerThree = (EditText) view.findViewById(R.id.etPlayerThree);
         etPlayerFour = (EditText) view.findViewById(R.id.etPlayerFour);
+        etPlayerFive = (EditText) view.findViewById(R.id.etPlayerFive);
 
         // Initialize all players
         allPlayers = new ArrayList<>();
@@ -74,6 +76,7 @@ public class HindSetupFragment extends Fragment {
         String playerTwoName = etPlayerTwo.getText().toString();
         String playerThreeName = etPlayerThree.getText().toString();
         String playerFourName = etPlayerFour.getText().toString();
+        String playerFiveName = etPlayerFive.getText().toString();
 
         // Initialize the players if validated
         if (validatePlayerName(playerOneName)) {
@@ -94,6 +97,11 @@ public class HindSetupFragment extends Fragment {
         if (validatePlayerName(playerFourName)) {
             Player playerFour = new Player(playerFourName);
             allPlayers.add(playerFour);
+            numberOfPlayers++;
+        }
+        if (validatePlayerName(playerFiveName)) {
+            Player playerFive = new Player(playerFiveName);
+            allPlayers.add(playerFive);
             numberOfPlayers++;
         }
 

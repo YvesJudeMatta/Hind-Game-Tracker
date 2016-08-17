@@ -41,7 +41,6 @@ public class HindScoreboardFragment extends Fragment {
     private Game game;
     private int round;
 
-    private static final int MAX_ROUNDS = 3;
 
     @Nullable
     @Override
@@ -199,7 +198,7 @@ public class HindScoreboardFragment extends Fragment {
             updateTotalScoreRow();
 
             // Check which if its the last round
-            if (round == MAX_ROUNDS) {
+            if (round == Game.MAX_ROUNDS) {
                 // Grey out the current round
                 greyOutRoundRow(round);
 
@@ -216,7 +215,7 @@ public class HindScoreboardFragment extends Fragment {
                 game.setCompleted(true);
             } else {
                 // Check if its the second last round
-                if(round == MAX_ROUNDS -1) {
+                if(round == Game.MAX_ROUNDS -1) {
                     // Change the text of the button
                     Button btnFinish = (Button) view.findViewById(R.id.btnFinish);
                     btnFinish.setText(R.string.finish);
@@ -359,10 +358,10 @@ public class HindScoreboardFragment extends Fragment {
     }
 
     private void loadDatabase() {
-        // insert players
+        // Insert players
         insertPlayers();
 
-        // insert game
+        // Insert game
         insertGame();
     }
 
@@ -392,7 +391,7 @@ public class HindScoreboardFragment extends Fragment {
         contentValues.put(DBOpenHelper.GAME_PLAYER_COMPLETED, game.isCompleted());
 
         // Load the players into content values
-        contentValues = loadPlayersInContentValues(contentValues, game.getNumberOfPlayers());
+        contentValues = loadPlayersInContentValues(contentValues);
 
         // Insert the game into the database and set the id for the game
         Uri uriGame = getActivity().getContentResolver().insert(GameProvider.CONTENT_URI, contentValues);
@@ -400,20 +399,9 @@ public class HindScoreboardFragment extends Fragment {
             game.setId(Integer.parseInt(uriGame.getLastPathSegment()));
     }
 
-    private ContentValues loadPlayersInContentValues(ContentValues contentValues, int numberOfPlayers) {
-        // Check how many plays there is and insert the number of players accordingly
-        if (numberOfPlayers == 2) {
-            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
-        } else if (numberOfPlayers == 3) {
-            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
-        } else if (numberOfPlayers == 4) {
-            contentValues.put(DBOpenHelper.GAME_PLAYER_ONE, game.getAllPlayers().get(0).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_TWO, game.getAllPlayers().get(1).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_THREE, game.getAllPlayers().get(2).getId());
-            contentValues.put(DBOpenHelper.GAME_PLAYER_FOUR, game.getAllPlayers().get(3).getId());
+    private ContentValues loadPlayersInContentValues(ContentValues contentValues) {
+        for (int i = 1; i <= game.getNumberOfPlayers(); i++) {
+            contentValues.put("player_" + i, game.getAllPlayers().get(i-1).getId());
         }
         return contentValues;
     }

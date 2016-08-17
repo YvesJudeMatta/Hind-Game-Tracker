@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Hind-Game-Tracker.iml" filepath="$PROJECT_DIR$/Hind-Game-Tracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HindScoreboard.iml" filepath="$PROJECT_DIR$/HindScoreboard.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

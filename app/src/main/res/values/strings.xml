@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hind Game Tracker</string>
+    <string name="app_name">Hind Scoreboard</string>
 
     <!-- HindListFragment -->
     <string name="fragment_game_list_name">Game List Fragment</string>
@@ -15,6 +15,7 @@
     <string name="player_two">Player Two</string>
     <string name="player_three">Player Three</string>
     <string name="player_four">Player Four</string>
+    <string name="player_five">Player Five</string>
     <string name="start_game">Start Game</string>
     <!-- /HindSetupFragment -->
 

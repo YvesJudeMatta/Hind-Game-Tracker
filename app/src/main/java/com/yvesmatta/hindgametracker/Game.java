@@ -4,6 +4,10 @@ import java.util.List;
 
 public class Game {
 
+    // Constants
+    public static final int MAX_NUMBER_OF_PLAYERS = 5;
+    public static final int MAX_ROUNDS = 3;
+
     // Class variables
     private int id;
     private int numberOfPlayers;

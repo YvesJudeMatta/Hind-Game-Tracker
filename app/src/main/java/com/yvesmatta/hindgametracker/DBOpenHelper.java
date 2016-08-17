@@ -39,10 +39,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String TABLE_GAME = "game";
     public static final String GAME_ID = "_id";
     public static final String GAME_PLAYER_COUNT = "player_count";
-    public static final String GAME_PLAYER_ONE = "player_one";
-    public static final String GAME_PLAYER_TWO = "player_two";
-    public static final String GAME_PLAYER_THREE = "player_three";
-    public static final String GAME_PLAYER_FOUR = "player_four";
     public static final String GAME_PLAYER_WINNER = "winner";
     public static final String GAME_PLAYER_COMPLETED = "completed";
     public static final String GAME_CREATED = "created";
@@ -50,10 +46,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String[] GAME_ALL_COLUMNS = {
             GAME_ID,
             GAME_PLAYER_COUNT,
-            GAME_PLAYER_ONE,
-            GAME_PLAYER_TWO,
-            GAME_PLAYER_THREE,
-            GAME_PLAYER_FOUR,
             GAME_PLAYER_WINNER,
             GAME_PLAYER_COMPLETED,
             GAME_CREATED
@@ -64,17 +56,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_GAME + " (" +
                     GAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     GAME_PLAYER_COUNT + " INTEGER NOT NULL, " +
-                    GAME_PLAYER_ONE + " TEXT NOT NULL, " +
-                    GAME_PLAYER_TWO + " TEXT NOT NULL, " +
-                    GAME_PLAYER_THREE + " TEXT, " +
-                    GAME_PLAYER_FOUR + " TEXT, " +
                     GAME_PLAYER_WINNER + " TEXT, " +
                     GAME_PLAYER_COMPLETED + " BIT, " +
-                    GAME_CREATED + " TEXT, " +
-                    " FOREIGN KEY(" + GAME_PLAYER_ONE + ") REFERENCES " + TABLE_PLAYER + "("+ PLAYER_ID +"), " +
-                    " FOREIGN KEY(" + GAME_PLAYER_TWO + ") REFERENCES " + TABLE_PLAYER + "("+ PLAYER_ID +"), " +
-                    " FOREIGN KEY(" + GAME_PLAYER_THREE + ") REFERENCES " + TABLE_PLAYER + "("+ PLAYER_ID +"), " +
-                    " FOREIGN KEY(" + GAME_PLAYER_FOUR + ") REFERENCES " + TABLE_PLAYER + "("+ PLAYER_ID +") " +
+                    GAME_CREATED + " TEXT" +
                     ")";
 
     public DBOpenHelper(Context context) {
@@ -84,7 +68,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(PLAYER_TABLE_CREATE);
-        sqLiteDatabase.execSQL(GAME_TABLE_CREATE);
+        sqLiteDatabase.execSQL(generateGameTableQuery());
     }
 
     @Override
@@ -92,5 +76,27 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_GAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PLAYER);
         onCreate(sqLiteDatabase);
+    }
+
+    public String generateGameTableQuery() {
+        // player column query
+        String playerColumns = "";
+        for (int i = 1; i <= Game.MAX_NUMBER_OF_PLAYERS; i++) {
+           playerColumns += "player_" + i + " TEXT, ";
+        }
+
+        // game table query
+        String gameTableCreate =
+                "CREATE TABLE " + TABLE_GAME + " (" +
+                        GAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        GAME_PLAYER_COUNT + " INTEGER NOT NULL, " +
+                        playerColumns +
+                        GAME_PLAYER_WINNER + " TEXT, " +
+                        GAME_PLAYER_COMPLETED + " BIT, " +
+                        GAME_CREATED + " TEXT" +
+                        ")";
+
+        // return the game table query
+        return gameTableCreate;
     }
 }
