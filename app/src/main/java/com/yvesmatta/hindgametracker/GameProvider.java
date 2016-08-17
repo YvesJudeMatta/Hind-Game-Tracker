@@ -48,7 +48,7 @@ public class GameProvider extends ContentProvider {
                 DBOpenHelper.GAME_ALL_COLUMNS,
                 s,
                 null, null, null,
-                DBOpenHelper.GAME_CREATED
+                DBOpenHelper.GAME_CREATED + " DESC"
         );
     }
 

@@ -27,5 +27,6 @@
     <string name="please_fill_in_all_fields">Please fill in all fields</string>
     <string name="okay">Okay</string>
     <string name="discard_game">Are you sure you want to discard this game?</string>
+    <string name="tie">Tie!</string>
     <!-- /HindScoreboardFragment -->
 </resources>

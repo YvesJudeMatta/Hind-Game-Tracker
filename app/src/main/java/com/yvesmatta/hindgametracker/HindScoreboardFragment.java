@@ -207,7 +207,10 @@ public class HindScoreboardFragment extends Fragment {
                 view.setVisibility(View.INVISIBLE);
                 
                 // Update winner
-                showWinningPlayersDialog();
+                ArrayList<Player> winningPlayers = showWinningPlayersDialog();
+                if (winningPlayers.size() == 1) {
+                    game.setWinner(winningPlayers.get(0));
+                }
 
                 // Update game to completed
                 game.setCompleted(true);
@@ -233,7 +236,7 @@ public class HindScoreboardFragment extends Fragment {
         }
     }
 
-    private void showWinningPlayersDialog() {
+    private ArrayList<Player> showWinningPlayersDialog() {
         // Find the winning players
         ArrayList<Player> winningPlayers = findWinners();
 
@@ -256,6 +259,8 @@ public class HindScoreboardFragment extends Fragment {
                     .setPositiveButton(R.string.okay, dialogClickListener)
                     .show();
         }
+
+        return winningPlayers;
     }
 
     private String buildWinningPlayersMessage(ArrayList<Player> winningPlayers) {
@@ -367,7 +372,6 @@ public class HindScoreboardFragment extends Fragment {
             ContentValues contentValues = new ContentValues();
             contentValues.put(DBOpenHelper.PLAYER_NAME, game.getAllPlayers().get(i).getName());
             contentValues.put(DBOpenHelper.PLAYER_TOTAL_SCORE, game.getAllPlayers().get(i).getTotalScore());
-            contentValues.put(DBOpenHelper.PLAYER_CREATED, true);
 
             // Insert the player into the database and set the id for the player
             Uri playerUri = getActivity().getContentResolver().insert(PlayerProvider.CONTENT_URI, contentValues);
@@ -381,10 +385,9 @@ public class HindScoreboardFragment extends Fragment {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBOpenHelper.GAME_PLAYER_COUNT, game.getNumberOfPlayers());
         if (game.getWinner() != null) {
-            contentValues.put(DBOpenHelper.GAME_PLAYER_WINNER, game.getWinner().getId());
+            contentValues.put(DBOpenHelper.GAME_PLAYER_WINNER, game.getWinner().getName());
         }
         contentValues.put(DBOpenHelper.GAME_PLAYER_COMPLETED, game.isCompleted());
-        contentValues.put(DBOpenHelper.GAME_CREATED, true);
 
         // Load the players into content values
         contentValues = loadPlayersInContentValues(contentValues, game.getNumberOfPlayers());
