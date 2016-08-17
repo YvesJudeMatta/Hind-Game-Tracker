@@ -12,7 +12,7 @@
         jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="24.0.0"
-        sha1="1012065f86540fc1aefd83b9abce133806e4d828">
+        sha1="8aa4d191a5da4bc4a9f48e6aec1802961fcded26">
         <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_819b9a860d1092f02a6047612353eb4d9e3391ad\classes.dex" />
     </item>
     <item
@@ -26,7 +26,7 @@
         jar="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="24.0.0"
-        sha1="9706d06ac58a9f1ccff245ef0bb36edfac1b6249">
+        sha1="50d1985e819dbed819a48314e920a9c8b02b5ad9">
         <dex dex="D:\yvesm\Projects\Android\Hind-Game-Tracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c16b81f04e8d5947c597be111d0e94248834a8b4\classes.dex" />
     </item>
     <item
