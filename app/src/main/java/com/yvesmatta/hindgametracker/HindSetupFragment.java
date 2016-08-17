@@ -97,8 +97,6 @@ public class HindSetupFragment extends Fragment {
             numberOfPlayers++;
         }
 
-        Log.d(TAG, numberOfPlayers + "");
-
         if (numberOfPlayers < MIN_NUMBER_OF_PLAYERS) {
             String errorMsg = "You need at least " + MIN_NUMBER_OF_PLAYERS + " players to play";
             Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();

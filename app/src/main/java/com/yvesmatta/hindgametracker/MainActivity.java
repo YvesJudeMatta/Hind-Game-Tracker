@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         game = hindSetupFragment.setupGame();
         if (game != null) {
             // Load the database with the game and players
-            loadDatabase();
+            //loadDatabase();
 
             // Replace fragment in frgContainer with new fragment and commit the transaction
             hindScoreboardFragment = new HindScoreboardFragment();

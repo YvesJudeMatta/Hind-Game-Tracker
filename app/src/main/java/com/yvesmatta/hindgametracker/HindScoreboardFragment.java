@@ -30,6 +30,7 @@ public class HindScoreboardFragment extends Fragment {
     private TableLayout tlScoreBoard;
     private TableLayout tlTotalScores;
     private TableRow.LayoutParams trLPWW;
+    private TableRow.LayoutParams trLPWWOneWeight;
     private TableRow.LayoutParams trLPMW;
 
     private Game game;
@@ -50,6 +51,7 @@ public class HindScoreboardFragment extends Fragment {
 
         // Define layout params
         trLPWW = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        trLPWWOneWeight = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f);
         trLPMW = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
         // Retrieve the game from the main activity
@@ -94,7 +96,7 @@ public class HindScoreboardFragment extends Fragment {
         // Add all the player name views to the row
         for (int i = 1; i <= game.getNumberOfPlayers(); i++) {
             TextView tvPlayerName = new TextView(getActivity());
-            tvPlayerName.setLayoutParams(trLPWW);
+            tvPlayerName.setLayoutParams(trLPWWOneWeight);
             tvPlayerName.setTag("Player" + i + "Name");
             tvPlayerName.setText(game.getAllPlayers().get(i-1).getName());
             tvPlayerName.setTypeface(null, Typeface.BOLD);
@@ -134,7 +136,7 @@ public class HindScoreboardFragment extends Fragment {
         // Add all the players score views to the row
         for (int i = 1; i <= game.getNumberOfPlayers(); i++){
             EditText etRoundPlayer = new EditText(getActivity());
-            etRoundPlayer.setLayoutParams(trLPWW);
+            etRoundPlayer.setLayoutParams(trLPWWOneWeight);
             etRoundPlayer.setTag("Round" + round + "Player" + i);
             etRoundPlayer.setGravity(Gravity.CENTER);
             etRoundPlayer.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(4)});
@@ -168,7 +170,7 @@ public class HindScoreboardFragment extends Fragment {
         // Add all the player score views to the row
         for (int i = 1; i <= game.getNumberOfPlayers(); i++) {
             TextView tvPlayerScore = new TextView(getActivity());
-            tvPlayerScore.setLayoutParams(trLPWW);
+            tvPlayerScore.setLayoutParams(trLPWWOneWeight);
             tvPlayerScore.setTag("Player" + i + "Score");
             tvPlayerScore.setText("0");
             tvPlayerScore.setTypeface(null, Typeface.BOLD);
