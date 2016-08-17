@@ -85,6 +85,16 @@ public class DBOpenHelper extends SQLiteOpenHelper {
            playerColumns += "player_" + i + " TEXT, ";
         }
 
+        // Foreign key constraints for the game table
+        String playerForeignKeyConstraints = "";
+        for (int i = 1; i <= Game.MAX_NUMBER_OF_PLAYERS; i++) {
+            if (i == Game.MAX_NUMBER_OF_PLAYERS) {
+                playerForeignKeyConstraints += " FOREIGN KEY (player_" + i + ") REFERENCES " + TABLE_PLAYER + "(" + PLAYER_ID + ")";
+            } else {
+                playerForeignKeyConstraints += " FOREIGN KEY (player_"  + i + ") REFERENCES " + TABLE_PLAYER + "(" + PLAYER_ID + "), ";
+            }
+        }
+
         // game table query
         String gameTableCreate =
                 "CREATE TABLE " + TABLE_GAME + " (" +
@@ -93,7 +103,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                         playerColumns +
                         GAME_PLAYER_WINNER + " TEXT, " +
                         GAME_PLAYER_COMPLETED + " BIT, " +
-                        GAME_CREATED + " TEXT" +
+                        GAME_CREATED + " TEXT, " +
+                        playerForeignKeyConstraints +
                         ")";
 
         // return the game table query

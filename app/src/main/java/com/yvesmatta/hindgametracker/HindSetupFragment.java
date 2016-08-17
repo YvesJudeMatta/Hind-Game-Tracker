@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ import java.util.List;
 public class HindSetupFragment extends Fragment {
 
     private static final String TAG = HindSetupFragment.class.getSimpleName();
-    private static final int MIN_NUMBER_OF_PLAYERS = 2;
     private EditText etPlayerOne;
     private EditText etPlayerTwo;
     private EditText etPlayerThree;
@@ -105,8 +105,8 @@ public class HindSetupFragment extends Fragment {
             numberOfPlayers++;
         }
 
-        if (numberOfPlayers < MIN_NUMBER_OF_PLAYERS) {
-            String errorMsg = "You need at least " + MIN_NUMBER_OF_PLAYERS + " players to play";
+        if (numberOfPlayers < Game.MIN_NUMBER_OF_PLAYERS) {
+            String errorMsg = "You need at least " + Game.MIN_NUMBER_OF_PLAYERS + " players to play";
             Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
             return false;
         }
