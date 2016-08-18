@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llSetup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -19,75 +20,36 @@
         android:textStyle="bold"
         android:gravity="center" />
 
-    <EditText
-        android:id="@+id/etPlayerOne"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/spinNumberOfPlayers"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPlayersLabel"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:hint="@string/player_one"
-        android:textSize="16sp"
-        android:textColor="@color/colorText"
-        android:gravity="center"
-        android:inputType="text"
-        android:maxLength="10"/>
+        android:layout_marginTop="@dimen/table_row_vertical_margin"
+        android:layout_marginBottom="@dimen/table_row_vertical_margin"
+        android:padding="@dimen/table_row_all_margin"
+        android:layout_gravity="center"
+        android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/etPlayerTwo"
+    <LinearLayout
+        android:id="@+id/llPlayers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPlayerOne"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:hint="@string/player_two"
-        android:textSize="16sp"
-        android:textColor="@color/colorText"
-        android:gravity="center"
-        android:inputType="text"
-        android:maxLength="10"/>
+        android:orientation="vertical" >
+        <EditText
+            android:id="@+id/dsad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPlayersLabel"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/player_one"
+            android:textSize="16sp"
+            android:textColor="@color/colorText"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLength="10"/>
 
-    <EditText
-        android:id="@+id/etPlayerThree"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etPlayerTwo"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:hint="@string/player_three"
-        android:textSize="16sp"
-        android:textColor="@color/colorText"
-        android:gravity="center"
-        android:inputType="text"
-        android:maxLength="10"/>
-
-    <EditText
-        android:id="@+id/etPlayerFour"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etPlayerThree"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:hint="@string/player_four"
-        android:textSize="16sp"
-        android:textColor="@color/colorText"
-        android:gravity="center"
-        android:inputType="text"
-        android:maxLength="10"/>
-
-    <EditText
-        android:id="@+id/etPlayerFive"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etPlayerFour"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:hint="@string/player_five"
-        android:textSize="16sp"
-        android:textColor="@color/colorText"
-        android:gravity="center"
-        android:inputType="text"
-        android:maxLength="10"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnNextFragment"

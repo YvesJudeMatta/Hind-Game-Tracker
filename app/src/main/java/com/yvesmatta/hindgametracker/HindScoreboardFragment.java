@@ -98,14 +98,12 @@ public class HindScoreboardFragment extends Fragment {
     }
 
     private void updateScores() {
-        // Reset player total scores
-        resetPlayerTotalScores();
+        if (validateAllRoundRow()) {
+            // Reset player total scores
+            resetPlayerTotalScores();
 
-        // foreach round, check the value and recalculate the total score
-        for (int r = 1; r < round; r++) {
-            if (validateRoundRow(r)) {
-                updateTotalScoreRow(r);
-            }
+            // Update the total scores
+            updateTotalScoreRow();
         }
 
         // If the game is complete, show the winner
@@ -115,12 +113,6 @@ public class HindScoreboardFragment extends Fragment {
             if (winningPlayers.size() == 1) {
                 game.setWinner(winningPlayers.get(0));
             }
-        }
-    }
-
-    private void resetPlayerTotalScores() {
-        for (int p = 0; p < game.getNumberOfPlayers(); p++) {
-            game.getAllPlayers().get(p).setTotalScore(0);
         }
     }
 
@@ -246,10 +238,12 @@ public class HindScoreboardFragment extends Fragment {
 
     public void addRound(View view) {
         // Check if the row is validated
-        if (validateRoundRow(round)) {
+        if (validateAllRoundRow()) {
+            // Reset player scores
+            resetPlayerTotalScores();
 
             // Update total score row
-            updateTotalScoreRow(round);
+            updateTotalScoreRow();
 
             // Check which if its the last round
             if (round == Game.MAX_ROUNDS) {
@@ -348,12 +342,14 @@ public class HindScoreboardFragment extends Fragment {
         // Loop through all the players and find the best total score
         for (int i = 1; i <= game.getNumberOfPlayers(); i++){
             Player player = game.getAllPlayers().get(i-1);
-            if (player.getTotalScore() > winningScore) {
+            if (i == 1) {
+                winningScore = player.getTotalScore();
+            } else if (player.getTotalScore() < winningScore) {
                 winningScore = player.getTotalScore();
             }
         }
 
-        // Loop through all the players and
+        // Loop through all the players and add played that tied
         for (int i = 0; i < game.getNumberOfPlayers(); i++){
             Player player = game.getAllPlayers().get(i);
             if (player.getTotalScore() == winningScore) {
@@ -373,27 +369,37 @@ public class HindScoreboardFragment extends Fragment {
         }
     }
 
-    private boolean validateRoundRow(int round) {
-        for (int i = 1; i <= game.getNumberOfPlayers(); i++){
-            EditText etPlayer = (EditText) view.findViewWithTag("Round" + round + "Player" + i);
-            String text = etPlayer.getText().toString();
-            if (text.equalsIgnoreCase("") || text.contains(" ")) {
-                Toast.makeText(getActivity(), R.string.please_fill_in_all_fields, Toast.LENGTH_SHORT).show();
-                return false;
+    private boolean validateAllRoundRow() {
+        for (int r = 1; r <= round; r++) {
+            for (int p = 1; p <= game.getNumberOfPlayers(); p++) {
+                EditText etPlayer = (EditText) view.findViewWithTag("Round" + r + "Player" + p);
+                String text = etPlayer.getText().toString();
+                if (text.equalsIgnoreCase("") || text.contains(" ")) {
+                    Toast.makeText(getActivity(), R.string.please_fill_in_all_fields, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
             }
         }
         return true;
     }
 
-    private void updateTotalScoreRow(int round) {
-        for (int i = 1; i <= game.getNumberOfPlayers(); i++) {
-            // Update the total score in the Player object
-            updateTotalScore(i, round);
+    private void resetPlayerTotalScores() {
+        for (int p = 0; p < game.getNumberOfPlayers(); p++) {
+            game.getAllPlayers().get(p).setTotalScore(0);
+        }
+    }
 
-            // Update the total score in the view
-            TextView tvPlayerScore = (TextView) view.findViewWithTag("Player" + i + "Score");
-            Log.d(TAG, game.getAllPlayers().get(i-1).getTotalScore() + "");
-            tvPlayerScore.setText(game.getAllPlayers().get(i-1).getTotalScore() + "");
+    private void updateTotalScoreRow() {
+        for (int r = 1; r <= round; r++) {
+            for (int p = 1; p <= game.getNumberOfPlayers(); p++) {
+                // Update the total score in the Player object
+                updateTotalScore(p, r);
+
+                // Update the total score in the view
+                TextView tvPlayerScore = (TextView) view.findViewWithTag("Player" + p + "Score");
+                Log.d(TAG, game.getAllPlayers().get(p-1).getTotalScore() + "");
+                tvPlayerScore.setText(game.getAllPlayers().get(p-1).getTotalScore() + "");
+            }
         }
     }
 
