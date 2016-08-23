@@ -45,7 +45,7 @@ public class PlayerProvider extends ContentProvider {
 
         return database.query(
                 DBOpenHelper.TABLE_PLAYER,
-                DBOpenHelper.PLAYER_ALL_COLUMNS,
+                DBOpenHelper.ALL_COLUMNS,
                 s,
                 null, null, null,
                 DBOpenHelper.PLAYER_CREATED

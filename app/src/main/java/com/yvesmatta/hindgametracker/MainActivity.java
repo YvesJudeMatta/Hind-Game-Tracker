@@ -14,10 +14,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     // Fragments
-    private FragmentManager fragmentManager;
-    private HindListFragment hindListFragment;
-    private HindSetupFragment hindSetupFragment;
-    private HindScoreboardFragment hindScoreboardFragment;
+    private static FragmentManager fragmentManager;
+    private static HindListFragment hindListFragment;
+    private static HindSetupFragment hindSetupFragment;
+    private static HindScoreboardFragment hindScoreboardFragment;
 
     // Game
     public static Game game = null;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Load the GamePlayFragment from setup view
-    public void loadGamePlayFragment(View view) {
+    public void loadScoreboardFragment(View view) {
         game = hindSetupFragment.setupGame();
         if (game != null) {
             // Replace fragment in frgContainer with new fragment and commit the transaction
@@ -94,5 +94,4 @@ public class MainActivity extends AppCompatActivity {
     public void fragmentAddRound(View view) {
         hindScoreboardFragment.addRound(view);
     }
-
 }

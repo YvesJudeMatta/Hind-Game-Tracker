@@ -6,6 +6,7 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.CursorAdapter;
@@ -57,7 +58,6 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
         // Attach the CursorAdapter to the list
         ListView list = (ListView) view.findViewById(android.R.id.list);
         list.setAdapter(cursorAdapter);
-
         // Initialize the loader
         getLoaderManager().initLoader(0, null, this);
 

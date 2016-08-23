@@ -41,6 +41,8 @@ public class HindScoreboardFragment extends Fragment {
     private Game game;
     private int round;
 
+    private String scoreFilter;
+
     public HindScoreboardFragment() {
         setHasOptionsMenu(true);
     }
@@ -72,9 +74,6 @@ public class HindScoreboardFragment extends Fragment {
 
         // Define round
         round = 1;
-
-        // Create the score layout
-        createScoreLayout();
 
         return view;
     }

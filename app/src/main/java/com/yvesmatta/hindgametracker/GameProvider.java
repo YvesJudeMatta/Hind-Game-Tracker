@@ -20,7 +20,7 @@ public class GameProvider extends ContentProvider {
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-    private static final String CONTENT_ITEM_TYPE = "Game";
+    public static final String CONTENT_ITEM_TYPE = "Game";
 
     static {
         uriMatcher.addURI(AUTHORITY, BASE_PATH, GAME);
@@ -45,7 +45,7 @@ public class GameProvider extends ContentProvider {
 
         return database.query(
                 DBOpenHelper.TABLE_GAME,
-                DBOpenHelper.GAME_ALL_COLUMNS,
+                DBOpenHelper.ALL_COLUMNS,
                 s,
                 null, null, null,
                 DBOpenHelper.GAME_CREATED + " DESC"

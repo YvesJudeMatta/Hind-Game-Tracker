@@ -19,7 +19,7 @@
         jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="24.0.0"
-        sha1="9207d3f1a2401d23c7d4c51911cbfe8322da0613">
+        sha1="a420fc11a1634b291a181aa42fd8da45eeaec8a2">
         <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_d1a7ac280098d28a651b71765401bb75d998b8e8\classes.dex" />
     </item>
     <item
@@ -47,7 +47,7 @@
         jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="24.0.0"
-        sha1="b31ac3aa102324e4422496aed9bb18d7b1cf69eb">
+        sha1="e3410b7479941a208c67e5c61da7877ffee83de6">
         <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_cd97ae4dacaabd53255e98ff689d2046a86eec3b\classes.dex" />
     </item>
     <item

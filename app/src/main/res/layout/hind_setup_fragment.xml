@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPlayerFive"
-        android:onClick="loadGamePlayFragment"
+        android:onClick="loadScoreboardFragment"
         android:text="@string/start_game"
         android:background="@color/colorAccent"
         android:textColor="@color/colorButtonText"

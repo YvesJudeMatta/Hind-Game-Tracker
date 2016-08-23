@@ -10,6 +10,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "hind.db";
     private static final int DATABASE_VERSION = 1;
 
+    public static final String[] ALL_COLUMNS = { "*" };
+
     // Constants for identifying table and columns
 
     // player
@@ -18,13 +20,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String PLAYER_NAME = "name";
     public static final String PLAYER_TOTAL_SCORE = "total_score";
     public static final String PLAYER_CREATED = "created";
-
-    public static final String[] PLAYER_ALL_COLUMNS = {
-            PLAYER_ID,
-            PLAYER_NAME,
-            PLAYER_TOTAL_SCORE,
-            PLAYER_CREATED
-    };
 
     // SQL to create the table
     private static final String PLAYER_TABLE_CREATE =
@@ -43,23 +38,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String GAME_PLAYER_COMPLETED = "completed";
     public static final String GAME_CREATED = "created";
 
-    public static final String[] GAME_ALL_COLUMNS = {
-            GAME_ID,
-            GAME_PLAYER_COUNT,
-            GAME_PLAYER_WINNER,
-            GAME_PLAYER_COMPLETED,
-            GAME_CREATED
-    };
-
-    // SQL to create the table
-    private static final String GAME_TABLE_CREATE =
-            "CREATE TABLE " + TABLE_GAME + " (" +
-                    GAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    GAME_PLAYER_COUNT + " INTEGER NOT NULL, " +
-                    GAME_PLAYER_WINNER + " TEXT, " +
-                    GAME_PLAYER_COMPLETED + " BIT, " +
-                    GAME_CREATED + " TEXT" +
-                    ")";
+    // score
+    public static final String TABLE_SCORE = "score";
+    public static final String SCORE_ID = "_id";
+    public static final String SCORE_PLAYER = "player";
 
     public DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -68,17 +50,38 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(PLAYER_TABLE_CREATE);
+        sqLiteDatabase.execSQL(generateScoreTableQuery());
         sqLiteDatabase.execSQL(generateGameTableQuery());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_GAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_SCORE);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PLAYER);
         onCreate(sqLiteDatabase);
     }
 
-    public String generateGameTableQuery() {
+    private String generateScoreTableQuery() {
+        // round column query
+        String roundColumns = "";
+        for (int i = 1; i <= Game.MAX_ROUNDS; i++) {
+            roundColumns += "round_" + i + " INTEGER, ";
+        }
+
+        // score table query
+        String scoreTableCreate =
+                "CREATE TABLE " + TABLE_SCORE + " (" +
+                        SCORE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        roundColumns +
+                        " FOREIGN KEY (" + SCORE_PLAYER + ") REFERENCES " + TABLE_PLAYER + "(" + PLAYER_ID + ")" +
+                        ")";
+
+        // return the score table query
+        return scoreTableCreate;
+    }
+
+    private String generateGameTableQuery() {
         // player column query
         String playerColumns = "";
         for (int i = 1; i <= Game.MAX_NUMBER_OF_PLAYERS; i++) {
