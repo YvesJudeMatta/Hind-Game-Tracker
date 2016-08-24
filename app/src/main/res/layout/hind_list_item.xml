@@ -9,7 +9,8 @@
         android:id="@+id/imgGameIcon"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:src="@android:drawable/star_on"/>
+        android:src="@android:drawable/star_on"
+        android:contentDescription="@string/game"/>
 
     <TextView
         android:id="@+id/txtWinner"
@@ -17,8 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/imgGameIcon"
         android:layout_toRightOf="@+id/imgGameIcon"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:text="Winner: Yves"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/dummy_text"
         android:textStyle="bold"
         android:textSize="18sp"/>
 
@@ -29,7 +30,7 @@
         android:layout_toEndOf="@+id/imgGameIcon"
         android:layout_toRightOf="@+id/imgGameIcon"
         android:layout_below="@+id/txtWinner"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:text="Date Won: July 23, 2016"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/dummy_text"
         android:textSize="13sp"/>
 </RelativeLayout>

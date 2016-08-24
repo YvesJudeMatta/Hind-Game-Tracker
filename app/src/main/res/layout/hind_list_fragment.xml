@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_all_margin"
-    tools:context=".HindListFragment">
+    tools:context=".Fragments.HindListFragment">
 
     <ListView
         android:id="@+id/android:list"
@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
-        android:elevation="6dp"
         android:src="@drawable/ic_action_add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

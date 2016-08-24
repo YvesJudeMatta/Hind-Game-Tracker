@@ -1,17 +1,18 @@
 package com.yvesmatta.hindgametracker;
 
 import android.app.FragmentManager;
-import android.content.ContentValues;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import com.yvesmatta.hindgametracker.Fragments.HindListFragment;
+import com.yvesmatta.hindgametracker.Fragments.HindScoreboardFragment;
+import com.yvesmatta.hindgametracker.Fragments.HindSetupFragment;
+import com.yvesmatta.hindgametracker.Models.Game;
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class MainActivity extends AppCompatActivity {
 
     // Fragments
     private static FragmentManager fragmentManager;

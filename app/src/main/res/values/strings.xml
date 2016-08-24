@@ -2,33 +2,25 @@
     <string name="app_name">Hind Scoreboard</string>
 
     <!-- HindListFragment -->
-    <string name="fragment_game_list_name">Game List Fragment</string>
     <string name="all_games_deleted">All games deleted</string>
-    <string name="new_game">New Game</string>
     <string name="are_you_sure">Are you sure?</string>
     <!-- /HindListFragment -->
 
     <!-- HindSetupFragment -->
-    <string name="fragment_game_setup_name">Game Setup Fragment</string>
     <string name="players">Players</string>
-    <string name="player_one">Player One</string>
-    <string name="player_two">Player Two</string>
-    <string name="player_three">Player Three</string>
-    <string name="player_four">Player Four</string>
-    <string name="player_five">Player Five</string>
     <string name="start_game">Start Game</string>
     <!-- /HindSetupFragment -->
 
     <!-- HindScoreboardFragment -->
-    <string name="fragment_game_scoreboard">Game Scoreboard Fragment</string>
     <string name="scoreboard_player_names_row">PlayerNamesRow</string>
-    <string name="scoreboard_player_one_name">PlayerOneName</string>
     <string name="plus">+</string>
     <string name="finish">Finish</string>
     <string name="please_fill_in_all_fields">Please fill in all fields</string>
     <string name="okay">Okay</string>
-    <string name="discard_game">Are you sure you want to discard this game?</string>
     <string name="tie">Tie!</string>
     <string name="update">Update</string>
+    <string name="game">game:</string>
+    <string name="delete_all_games">Delete all games</string>
+    <string name="dummy_text">Dummy Text</string>
     <!-- /HindScoreboardFragment -->
 </resources>

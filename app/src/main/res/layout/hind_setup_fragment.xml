@@ -8,7 +8,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:padding="@dimen/activity_all_margin"
-    tools:context=".HindSetupFragment">
+    tools:context=".Fragments.HindSetupFragment">
 
     <TextView
         android:id="@+id/tvPlayersLabel"
@@ -35,19 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-        <EditText
-            android:id="@+id/dsad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvPlayersLabel"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:hint="@string/player_one"
-            android:textSize="16sp"
-            android:textColor="@color/colorText"
-            android:gravity="center"
-            android:inputType="text"
-            android:maxLength="10"/>
 
     </LinearLayout>
 
@@ -55,7 +42,6 @@
         android:id="@+id/btnNextFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPlayerFive"
         android:onClick="loadScoreboardFragment"
         android:text="@string/start_game"
         android:background="@color/colorAccent"

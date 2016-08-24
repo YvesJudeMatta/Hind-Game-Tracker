@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.yvesmatta.hindgametracker.Models.Game;
+
 public class DBOpenHelper extends SQLiteOpenHelper {
 
     // Constants for db name and version
@@ -38,11 +40,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String GAME_PLAYER_COMPLETED = "completed";
     public static final String GAME_CREATED = "created";
 
-    // score
-    public static final String TABLE_SCORE = "score";
-    public static final String SCORE_ID = "_id";
-    public static final String SCORE_PLAYER = "player";
-
     public DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -50,35 +47,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(PLAYER_TABLE_CREATE);
-        sqLiteDatabase.execSQL(generateScoreTableQuery());
         sqLiteDatabase.execSQL(generateGameTableQuery());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_GAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_SCORE);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PLAYER);
         onCreate(sqLiteDatabase);
-    }
-
-    private String generateScoreTableQuery() {
-        // round column query
-        String roundColumns = "";
-        for (int i = 1; i <= Game.MAX_ROUNDS; i++) {
-            roundColumns += "round_" + i + " INTEGER, ";
-        }
-
-        // score table query
-        String scoreTableCreate =
-                "CREATE TABLE " + TABLE_SCORE + " (" +
-                        SCORE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        roundColumns +
-                        " FOREIGN KEY (" + SCORE_PLAYER + ") REFERENCES " + TABLE_PLAYER + "(" + PLAYER_ID + ")" +
-                        ")";
-
-        // return the score table query
-        return scoreTableCreate;
     }
 
     private String generateGameTableQuery() {
@@ -99,18 +75,16 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         }
 
         // game table query
-        String gameTableCreate =
-                "CREATE TABLE " + TABLE_GAME + " (" +
-                        GAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        GAME_PLAYER_COUNT + " INTEGER NOT NULL, " +
-                        playerColumns +
-                        GAME_PLAYER_WINNER + " TEXT, " +
-                        GAME_PLAYER_COMPLETED + " BIT, " +
-                        GAME_CREATED + " TEXT, " +
-                        playerForeignKeyConstraints +
-                        ")";
 
         // return the game table query
-        return gameTableCreate;
+        return "CREATE TABLE " + TABLE_GAME + " (" +
+                GAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                GAME_PLAYER_COUNT + " INTEGER NOT NULL, " +
+                playerColumns +
+                GAME_PLAYER_WINNER + " TEXT, " +
+                GAME_PLAYER_COMPLETED + " BIT, " +
+                GAME_CREATED + " TEXT, " +
+                playerForeignKeyConstraints +
+                ")";
     }
 }
