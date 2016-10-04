@@ -13,6 +13,7 @@ import com.yvesmatta.hindgametracker.DBOpenHelper;
 
 public class GameProvider extends ContentProvider {
 
+    // Constants
     private static final String AUTHORITY = "com.yvesmatta.hindgametracker.gameprovider";
     private static final String BASE_PATH = "hind_games";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);

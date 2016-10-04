@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get instance of the FragmentManager and FragmentTransaction to add/remove fragments
+        // Get instance of the FragmentManager to add/remove fragments
         fragmentManager = getFragmentManager();
 
         // Add fragment to frgContainer and commit the transaction
@@ -40,19 +40,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the main menu
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Store the id that was clicked
         int id = item.getItemId();
 
+        // Switch to find which item was clicked
         switch (id) {
             case android.R.id.home:
+                // Call the override method
                 onBackPressed();
                 break;
         }
+
+        // Return the supers class method call
         return super.onOptionsItemSelected(item);
     }
 
@@ -82,7 +88,10 @@ public class MainActivity extends AppCompatActivity {
 
     // Load the GamePlayFragment from setup view
     public void loadScoreboardFragment(View view) {
+        // Assign the game
         game = hindSetupFragment.setupGame();
+
+        // Ensure the game is not null before continuing
         if (game != null) {
             // Replace fragment in frgContainer with new fragment and commit the transaction
             hindScoreboardFragment = new HindScoreboardFragment();
@@ -92,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Call the hindScoreboardFragment method from the scoreboard view
     public void fragmentAddRound(View view) {
         hindScoreboardFragment.addRound(view);
     }

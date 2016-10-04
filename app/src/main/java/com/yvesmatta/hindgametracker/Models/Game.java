@@ -6,7 +6,7 @@ public class Game {
 
     // Constants
     public static final int MAX_NUMBER_OF_PLAYERS = 5;
-    public static final int MAX_ROUNDS = 3;
+    public static final int MAX_ROUNDS = 8;
     public static final int MIN_NUMBER_OF_PLAYERS = 2;
 
     // Class variables

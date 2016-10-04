@@ -19,12 +19,14 @@ import java.util.Locale;
 
 public class HindCursorAdapter extends CursorAdapter {
 
+    // Constructor
     public HindCursorAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
+        // return the inflated view
         return LayoutInflater.from(context).inflate(R.layout.hind_list_item, viewGroup, false );
     }
 
@@ -57,6 +59,6 @@ public class HindCursorAdapter extends CursorAdapter {
 
         // Set the formatted date
         TextView txtDateWon = (TextView) view.findViewById(R.id.txtDateWon);
-        txtDateWon.setText(dateFormat.format(date));
+        txtDateWon.setText("Date: " + dateFormat.format(date));
     }
 }
