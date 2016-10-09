@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yvesmatta.hindgametracker">
+    package="com.yvesmatta.hindscoreboard">
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name="com.yvesmatta.hindscoreboard.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,13 +17,23 @@
         </activity>
 
         <provider
-            android:name=".Providers.GameProvider"
-            android:authorities="com.yvesmatta.hindgametracker.gameprovider"
+            android:name="com.yvesmatta.hindscoreboard.Providers.GameProvider"
+            android:authorities="com.yvesmatta.hindscoreboard.gameprovider"
             android:exported="false" />
 
         <provider
-            android:name=".Providers.PlayerProvider"
-            android:authorities="com.yvesmatta.hindgametracker.playerprovider"
+            android:name="com.yvesmatta.hindscoreboard.Providers.PlayerProvider"
+            android:authorities="com.yvesmatta.hindscoreboard.playerprovider"
+            android:exported="false" />
+
+        <provider
+            android:name="com.yvesmatta.hindscoreboard.Providers.RoundScoreProvider"
+            android:authorities="com.yvesmatta.hindscoreboard.roundscoreprovider"
+            android:exported="false" />
+
+        <provider
+            android:name="com.yvesmatta.hindscoreboard.Providers.GameWinnerProvider"
+            android:authorities="com.yvesmatta.hindscoreboard.gamewinnerprovider"
             android:exported="false" />
     </application>
 
