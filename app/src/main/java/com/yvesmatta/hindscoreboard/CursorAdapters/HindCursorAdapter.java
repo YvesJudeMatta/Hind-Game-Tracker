@@ -72,7 +72,7 @@ public class HindCursorAdapter extends CursorAdapter {
 
         // For every Id in the winning id ArrayList
         for (int p = 0; p < winnerIds.size(); p++) {
-            // Grabb all the player that won
+            // Grab all the player that won
             String winningPlayerFilter = DBOpenHelper.PLAYER_ID + "=" + winnerIds.get(p);
             Cursor winningPlayerCursor = context.getContentResolver().query(PlayerProvider.CONTENT_URI, DBOpenHelper.ALL_COLUMNS, winningPlayerFilter, null, null);
 

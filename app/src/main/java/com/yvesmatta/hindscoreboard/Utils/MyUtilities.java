@@ -1,6 +1,7 @@
 package com.yvesmatta.hindscoreboard.Utils;
 
 import com.yvesmatta.hindscoreboard.Models.Player;
+
 import java.util.ArrayList;
 
 public class MyUtilities {
@@ -11,20 +12,20 @@ public class MyUtilities {
         StringBuilder builder = new StringBuilder();
 
         // Loop for every player in the list
-        for (int i = 0; i < winningPlayers.size(); i++) {
+        for (Player player : winningPlayers) {
             // If its the first instance, only place the name
             // otherwise, place some grammer
-            if (i == 0) {
-                builder.append(winningPlayers.get(i).getName());
+            if (player == winningPlayers.get(0)) {
+                builder.append(player.getName());
             } else {
-                String grammer = (i == winningPlayers.size() - 1) ? " and " : ", ";
+                String grammer = (player == winningPlayers.get(winningPlayers.size() - 1)) ? " and " : ", ";
                 builder.append(grammer);
-                builder.append(winningPlayers.get(i).getName());
+                builder.append(player.getName());
             }
         }
 
         // Check the size of the winning players to see if the players tied
-        if (winningPlayers.size() > 1){
+        if (winningPlayers.size() > 1) {
             builder.append(" tied the game!");
         } else {
             builder.append(" won the game!");

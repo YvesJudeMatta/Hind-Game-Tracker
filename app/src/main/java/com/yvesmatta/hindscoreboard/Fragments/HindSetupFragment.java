@@ -23,7 +23,6 @@ import com.yvesmatta.hindscoreboard.Models.Player;
 import com.yvesmatta.hindscoreboard.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HindSetupFragment extends Fragment {
 
@@ -52,7 +51,7 @@ public class HindSetupFragment extends Fragment {
 
         // Define layout params
         lpMW = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        
+
         // Retrieve views from layout
         spinNumberOfPlayers = (Spinner) view.findViewById(R.id.spinNumberOfPlayers);
 
@@ -61,7 +60,7 @@ public class HindSetupFragment extends Fragment {
 
         // Add the options for the spinner
         for (int i = Game.MIN_NUMBER_OF_PLAYERS; i <= Game.MAX_NUMBER_OF_PLAYERS; i++) {
-            numberOfPlayers.add(i+"");
+            numberOfPlayers.add(i + "");
         }
 
         // Initialize the array adapter
@@ -103,22 +102,31 @@ public class HindSetupFragment extends Fragment {
     private void generatePlayerViews(String selectedNumberOfPlayers) {
         int numberOfPlayersSelected = Integer.parseInt(selectedNumberOfPlayers);
         for (int i = 1; i <= numberOfPlayersSelected; i++) {
-            EditText etPlayer = new EditText(getActivity());
-            etPlayer.setLayoutParams(lpMW);
+            // Create the player name view
+            EditText etPlayer = createEditView();
             etPlayer.setTag("Player" + i + "Name");
             etPlayer.setHint("Player " + i);
-            etPlayer.setTextSize(16);
-            etPlayer.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorText));
-            etPlayer.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(10)});
-            etPlayer.setInputType(InputType.TYPE_CLASS_TEXT);
-            etPlayer.setGravity(Gravity.CENTER);
-            etPlayer.setPadding(
-                    0, (int) getResources().getDimension(R.dimen.view_vertical_margin),
-                    0, (int) getResources().getDimension(R.dimen.view_vertical_margin));
 
-            // Add player view to the layout
+            // Add player name view to the layout
             llPlayers.addView(etPlayer);
         }
+    }
+
+    private EditText createEditView() {
+        // Create a EditView and set its attributes
+        EditText et = new EditText(getActivity());
+        et.setLayoutParams(lpMW);
+        et.setTextSize(16);
+        et.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorText));
+        et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
+        et.setInputType(InputType.TYPE_CLASS_TEXT);
+        et.setGravity(Gravity.CENTER);
+        et.setPadding(
+                0, (int) getResources().getDimension(R.dimen.view_vertical_margin),
+                0, (int) getResources().getDimension(R.dimen.view_vertical_margin));
+
+        // return the EditView
+        return et;
     }
 
     public void showBackButton() {
@@ -135,18 +143,20 @@ public class HindSetupFragment extends Fragment {
     }
 
     private boolean validatePlayers() {
-        // Initialize with the minimum number of players
+        // Initialize with no players
         numberOfPlayers = 0;
 
         int numberOfPlayersSelected = Integer.parseInt(spinNumberOfPlayers.getSelectedItem().toString());
         for (int i = 1; i <= numberOfPlayersSelected; i++) {
-            EditText etPlayer  = (EditText) view.findViewWithTag("Player" + i + "Name");
+            EditText etPlayer = (EditText) view.findViewWithTag("Player" + i + "Name");
             if (etPlayer != null) {
                 // Grab the string from the view
                 String playerName = etPlayer.getText().toString();
 
-                // Initialize the players if validated
-                if (validatePlayerName(playerName)) {
+
+                // Initialize the players name is not empty
+                if (!playerName.isEmpty()) {
+                    // Create a player and add it to the list of players
                     Player player = new Player(playerName);
                     allPlayers.add(player);
                     numberOfPlayers++;
@@ -154,16 +164,51 @@ public class HindSetupFragment extends Fragment {
             }
         }
 
+        // Validations for min number of players and unique names
         if (numberOfPlayers < Game.MIN_NUMBER_OF_PLAYERS) {
+            allPlayers.clear();
             String errorMsg = "You need at least " + Game.MIN_NUMBER_OF_PLAYERS + " players to play";
+            Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!validateUniqueNames()) {
+            allPlayers.clear();
+            String errorMsg = "All player names must be unique";
             Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
             return false;
         }
 
+        // Return true if everythign is okay
         return true;
     }
 
-    private boolean validatePlayerName(String playerName) {
-        return !playerName.isEmpty();
+    private boolean validateUniqueNames() {
+        // Create an empty array to store the names and a temp size variable
+        ArrayList<String> names = new ArrayList<>();
+        int tempSize = 0;
+
+        // Loop through all the players
+        for (Player player : allPlayers) {
+            // If its the first player
+            if (player == allPlayers.get(0)) {
+                // Add it to the list of names and increase the tempSize
+                names.add(player.getName());
+                tempSize++;
+            } else {
+                // Loop until it has reached tempSize
+                for (int i = 0; i < tempSize; i++) {
+                    // Check the list of names to see if the plauer name is identical
+                    // otherwise, add it ot the list of names
+                    if (player.getName().equals(names.get(i))) {
+                        return false;
+                    } else {
+                        names.add(player.getName());
+                    }
+                }
+            }
+
+        }
+
+        // Return true everything is okay
+        return true;
     }
 }

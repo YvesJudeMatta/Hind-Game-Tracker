@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorButtonText">#FFF</color>
     <color name="colorText">#333</color>
+
+    <color name="colorTotalScoreWinning">#4CAF50</color>
+    <color name="colorTotalScoreLosing">#F44336</color>
 </resources>
