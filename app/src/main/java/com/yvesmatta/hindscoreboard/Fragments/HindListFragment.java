@@ -2,10 +2,12 @@ package com.yvesmatta.hindscoreboard.Fragments;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.CursorAdapter;
@@ -17,10 +19,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.yvesmatta.hindscoreboard.CursorAdapters.HindCursorAdapter;
+import com.yvesmatta.hindscoreboard.DBOpenHelper;
+import com.yvesmatta.hindscoreboard.MainActivity;
 import com.yvesmatta.hindscoreboard.Providers.GameProvider;
 import com.yvesmatta.hindscoreboard.Providers.GameWinnerProvider;
 import com.yvesmatta.hindscoreboard.Providers.PlayerProvider;
@@ -58,6 +63,15 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
         // Attach the CursorAdapter to the list
         ListView list = (ListView) view.findViewById(android.R.id.list);
         list.setAdapter(cursorAdapter);
+
+        // Set on click listener
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                MainActivity.uri = Uri.parse(GameProvider.CONTENT_URI + "/" + id);
+                MainActivity.loadScoreboardFragmentReadOnly();
+            }
+        });
 
         // Initialize the loader
         getLoaderManager().initLoader(0, null, this);

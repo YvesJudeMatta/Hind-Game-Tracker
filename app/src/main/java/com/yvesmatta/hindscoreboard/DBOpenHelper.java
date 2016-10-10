@@ -24,13 +24,15 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     // game
     public static final String TABLE_GAME = "game";
     public static final String GAME_ID = "_id";
-    public static final String GAME_PLAYER_COMPLETED = "completed";
+    public static final String GAME_COMPLETED = "completed";
+    public static final String GAME_ROUNDS_PLAYED = "rounds_played";
 
     // SQL to create the game table
     private static final String GAME_TABLE_CREATE =
             "CREATE TABLE " + TABLE_GAME + " (" +
             GAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            GAME_PLAYER_COMPLETED + " BIT, " +
+            GAME_COMPLETED + " BIT, " +
+            GAME_ROUNDS_PLAYED + " INTEGER, " +
             CREATED_AT + " DATETIME, " +
             UPDATED_AT + " DATETIME);";
 

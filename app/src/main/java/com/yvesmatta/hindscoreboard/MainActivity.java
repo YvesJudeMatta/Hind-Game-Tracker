@@ -1,6 +1,7 @@
 package com.yvesmatta.hindscoreboard;
 
 import android.app.FragmentManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Game
     public static Game game = null;
+    public static Uri uri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
         // Assign the game
         game = hindSetupFragment.setupGame();
 
+        // Reset the uri
+        uri = null;
+
         // Ensure the game is not null before continuing
         if (game != null) {
             // Replace fragment in frgContainer with new fragment and commit the transaction
@@ -99,6 +104,15 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.frgContainer, hindScoreboardFragment)
                     .commit();
         }
+    }
+
+    // Load the GamePlayFragment from list view on item click
+    public static void loadScoreboardFragmentReadOnly() {
+        // Replace fragment in frgContainer with new fragment and commit the transaction
+        hindScoreboardFragment = new HindScoreboardFragment();
+        fragmentManager.beginTransaction()
+                .replace(R.id.frgContainer, hindScoreboardFragment)
+                .commit();
     }
 
     // Call the hindScoreboardFragment method from the scoreboard view

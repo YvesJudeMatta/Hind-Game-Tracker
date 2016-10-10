@@ -36,7 +36,7 @@ public class HindSetupFragment extends Fragment {
     // Game
     private Game game = null;
     private int numberOfPlayers;
-    private List<Player> allPlayers;
+    private ArrayList<Player> allPlayers;
 
     @Nullable
     @Override

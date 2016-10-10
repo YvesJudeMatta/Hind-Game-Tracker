@@ -3,15 +3,16 @@ package com.yvesmatta.hindscoreboard.Fragments;
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -51,7 +52,11 @@ public class HindScoreboardFragment extends Fragment {
 
     // Game
     private Game game;
+    private Uri uri;
     private int round;
+
+    // Fragment to be read only
+    private boolean readOnly;
 
     public HindScoreboardFragment() {
         setHasOptionsMenu(true);
@@ -69,6 +74,9 @@ public class HindScoreboardFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.hind_scoreboard_fragment, container, false);
 
+        // Show the back butting in the menu bar
+        showBackButton();
+
         // Retrieve the views for the table layout
         tlScoreBoard = (TableLayout) view.findViewById(R.id.tlScoreBoard);
         tlTotalScores = (TableLayout) view.findViewById(R.id.tlTotalScores);
@@ -78,14 +86,21 @@ public class HindScoreboardFragment extends Fragment {
         trLPWWOneWeight = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f);
         trLPMW = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
-        // Retrieve the game from the main activity
+        // Retrieve the game and uri from the main activity
         game = MainActivity.game;
+        uri = MainActivity.uri;
 
         // Define round
         round = 1;
 
+        // If its a new game or an existing game
+        readOnly = uri != null;
+
         // Create the score layout
         createScoreLayout();
+
+        // Recall creating the menu
+        getActivity().invalidateOptionsMenu();
 
         // Return the view
         return view;
@@ -94,6 +109,15 @@ public class HindScoreboardFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_scoreboard, menu);
+
+        // Set the visibility depending on readOnly
+        if (readOnly) {
+            menu.getItem(0).setVisible(false);
+        } else {
+            menu.getItem(0).setVisible(true);
+        }
+
+        // Call super method
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -144,11 +168,26 @@ public class HindScoreboardFragment extends Fragment {
     }
 
     private void createScoreLayout() {
+        if (readOnly) {
+            // Load data from database
+            loadFromDatabase();
+
+            // Hide button
+            Button btnFinish = (Button) view.findViewById(R.id.btnFinish);
+            btnFinish.setVisibility(View.INVISIBLE);
+        }
+
         // Create the player names row
         createPlayerNamesRow();
 
         // Create round score row
-        createRoundRow();
+        if (readOnly) {
+            for (int r = 1; r <= game.getRoundsPlayed(); r++) {
+                createRoundRow(r);
+            }
+        } else {
+            createRoundRow(round);
+        }
 
         // Create total score row
         createTotalScoreRow();
@@ -179,7 +218,7 @@ public class HindScoreboardFragment extends Fragment {
         tlScoreBoard.addView(trPlayerNamesRow);
     }
 
-    private void createRoundRow() {
+    private void createRoundRow(int round) {
         // Create the row
         TableRow trPlayerScoresRow = createTableRow();
         trPlayerScoresRow.setTag("Round" + round);
@@ -195,6 +234,12 @@ public class HindScoreboardFragment extends Fragment {
             // Create the player score view
             EditText etRoundPlayer = createEditView();
             etRoundPlayer.setTag("Round" + round + "Player" + i);
+
+            // if readOnly disable the view, and load the values
+            if (readOnly) {
+                etRoundPlayer.setText(game.getAllPlayers().get(i-1).getScores().get(round-1).toString());
+                etRoundPlayer.setFocusable(false);
+            }
 
             // Add player score view to row
             trPlayerScoresRow.addView(etRoundPlayer);
@@ -220,6 +265,11 @@ public class HindScoreboardFragment extends Fragment {
             // Create the player total score view
             TextView tvPlayerScore = createTextView("0", true);
             tvPlayerScore.setTag("Player" + i + "Score");
+
+            // if readOnly disable the view, and load the values
+            if (readOnly) {
+                tvPlayerScore.setText(game.getAllPlayers().get(i-1).getTotalScore()+"");
+            }
 
             // Add player total score view to row
             trPlayerTotalScoresRow.addView(tvPlayerScore);
@@ -311,7 +361,7 @@ public class HindScoreboardFragment extends Fragment {
                 round++;
 
                 // Create the round row
-                createRoundRow();
+                createRoundRow(round);
 
                 // Grey out the previous row
                 greyOutRoundRow(round - 1);
@@ -438,8 +488,14 @@ public class HindScoreboardFragment extends Fragment {
         game.getAllPlayers().get(playerIndex-1).addScore(roundScore);
     }
 
+    public void showBackButton() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
     public boolean onBackPressed() {
-        if (game.isCompleted()) {
+        if (game.isCompleted() && !readOnly) {
             loadDatabase();
         }
         return true;
@@ -462,7 +518,8 @@ public class HindScoreboardFragment extends Fragment {
     private void insertGame() {
         // Load the content values with the game data
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBOpenHelper.GAME_PLAYER_COMPLETED, game.isCompleted());
+        contentValues.put(DBOpenHelper.GAME_COMPLETED, game.isCompleted());
+        contentValues.put(DBOpenHelper.GAME_ROUNDS_PLAYED, round);
         contentValues.put(DBOpenHelper.CREATED_AT, System.currentTimeMillis());
         contentValues.put(DBOpenHelper.UPDATED_AT, System.currentTimeMillis());
 
@@ -520,5 +577,160 @@ public class HindScoreboardFragment extends Fragment {
                 getActivity().getContentResolver().insert(RoundScoreProvider.CONTENT_URI, contentValues);
             }
         }
+    }
+
+    private void loadFromDatabase() {
+        // Load players
+        ArrayList<Player> players = loadPlayers();
+
+        // If there are players in the list of players
+        if (players.size() > 0) {
+            // Load the scores for each player
+            for (Player player : players) {
+                player.setScores(loadScores(player));
+            }
+
+            // Load game
+            loadGame(players);
+
+            if (game != null) {
+                // Load the winners
+                game.setWinningPlayers(loadWinners());
+            }
+        }
+    }
+
+    private ArrayList<Player> loadPlayers() {
+        // ArrayList for all the players
+        ArrayList<Player> players = new ArrayList<>();
+
+        // Grab all the player object data
+        String gameFilter = DBOpenHelper.GAME_FOREIGN_ID + "=" + uri.getLastPathSegment();
+        Cursor playerCursor = getActivity().getContentResolver().query(PlayerProvider.CONTENT_URI, DBOpenHelper.ALL_COLUMNS, gameFilter, null, null);
+
+        // Grab all the players
+        if (playerCursor != null) {
+            while (playerCursor.moveToNext()) {
+                // Get data from the database
+                int id = playerCursor.getInt(playerCursor.getColumnIndex(DBOpenHelper.PLAYER_ID));
+                String name = playerCursor.getString(playerCursor.getColumnIndex(DBOpenHelper.PLAYER_NAME));
+                int totalScore = playerCursor.getInt(playerCursor.getColumnIndex(DBOpenHelper.PLAYER_TOTAL_SCORE));
+
+                // Create the player
+                Player player = new Player(name);
+                player.setId(id);
+                player.setTotalScore(totalScore);
+
+                // Add the player to the list of players
+                players.add(player);
+            }
+
+            // Close the cursor
+            playerCursor.close();
+        }
+
+        // Return the list of players
+        return players;
+    }
+
+    private ArrayList<Integer> loadScores(Player player) {
+        // ArrayList for all the players scores
+        ArrayList<Integer> scores = new ArrayList<>();
+
+        // Grab all the round_score object data
+        String gameFilter = DBOpenHelper.GAME_FOREIGN_ID + "=" + uri.getLastPathSegment();
+        String playerFilter = DBOpenHelper.PLAYER_FOREIGN_ID + "=" + player.getId();
+        String roundScoreFilter = gameFilter + " AND " + playerFilter;
+        Cursor roundScoreCursor = getActivity().getContentResolver().query(RoundScoreProvider.CONTENT_URI, DBOpenHelper.ALL_COLUMNS, roundScoreFilter, null, null);
+
+        // Grab all the players
+        if (roundScoreCursor != null) {
+            while (roundScoreCursor.moveToNext()) {
+                // Get data from the database
+                int score = roundScoreCursor.getInt(roundScoreCursor.getColumnIndex(DBOpenHelper.ROUND_SCORE_SCORE));
+
+                // Add the score to the list of scores
+                scores.add(score);
+            }
+
+            // Close the cursor
+            roundScoreCursor.close();
+        }
+
+        // Return the list of players
+        return scores;
+    }
+
+    private void loadGame(ArrayList<Player> players) {
+        // Grab all the game object data
+        String gameFilter = DBOpenHelper.GAME_ID + "=" + uri.getLastPathSegment();
+        Cursor gameCursor = getActivity().getContentResolver().query(GameProvider.CONTENT_URI, DBOpenHelper.ALL_COLUMNS, gameFilter, null, null);
+
+        // Grab all the players
+        if (gameCursor != null) {
+            gameCursor.moveToNext();
+
+            // Get data from the database
+            int id = gameCursor.getInt(gameCursor.getColumnIndex(DBOpenHelper.GAME_ID));
+            int completed = gameCursor.getInt(gameCursor.getColumnIndex(DBOpenHelper.GAME_COMPLETED));
+            int roundsPlayed = gameCursor.getInt(gameCursor.getColumnIndex(DBOpenHelper.GAME_ROUNDS_PLAYED));
+            boolean isCompleted = false;
+
+            if (completed == 1) {
+                isCompleted = true;
+            }
+
+            // Create the game
+            game = new Game(players.size(), players);
+            game.setId(id);
+            game.setRoundsPlayed(roundsPlayed);
+            game.setCompleted(isCompleted);
+
+            // Close the cursor
+            gameCursor.close();
+        }
+    }
+
+    private ArrayList<Player> loadWinners() {
+        // ArrayList to store winning players and another one to store the ids
+        ArrayList<Player> winningPlayers = new ArrayList<>();
+        ArrayList<Integer> winnerIds = new ArrayList<>();
+
+        String gameWinnerFilter = DBOpenHelper.GAME_FOREIGN_ID + "=" + game.getId();
+        Cursor gameWinnerCursor = getActivity().getContentResolver().query(GameWinnerProvider.CONTENT_URI, DBOpenHelper.ALL_COLUMNS, gameWinnerFilter, null, null);
+
+        // If data is found
+        if (gameWinnerCursor != null) {
+            // Grab all the rows
+            while (gameWinnerCursor.moveToNext()) {
+                // Add the player ids to the ArrayList
+                winnerIds.add(gameWinnerCursor.getInt(gameWinnerCursor.getColumnIndex(DBOpenHelper.PLAYER_FOREIGN_ID)));
+            }
+
+            // Close the cursor
+            gameWinnerCursor.close();
+        }
+
+        // For every Id in the winning id ArrayList
+        for (int p = 0; p < winnerIds.size(); p++) {
+            // Grab all the player that won
+            String winningPlayerFilter = DBOpenHelper.PLAYER_ID + "=" + winnerIds.get(p);
+            Cursor winningPlayerCursor = getActivity().getContentResolver().query(PlayerProvider.CONTENT_URI, DBOpenHelper.ALL_COLUMNS, winningPlayerFilter, null, null);
+
+            // If data is found
+            if (winningPlayerCursor != null) {
+                // Add the player to the winning players ArrayList
+                winningPlayerCursor.moveToNext();
+                String name = winningPlayerCursor.getString(winningPlayerCursor.getColumnIndex(DBOpenHelper.PLAYER_NAME));
+                Player player = new Player(name);
+                player.setId(winningPlayerCursor.getInt(winningPlayerCursor.getColumnIndex(DBOpenHelper.PLAYER_ID)));
+                winningPlayers.add(player);
+
+                // Close the cursor
+                winningPlayerCursor.close();
+            }
+        }
+
+        return winningPlayers;
     }
 }

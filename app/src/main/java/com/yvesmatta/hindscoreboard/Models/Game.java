@@ -1,7 +1,6 @@
 package com.yvesmatta.hindscoreboard.Models;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Game {
 
@@ -13,14 +12,16 @@ public class Game {
     // Class variables
     private int id;
     private final int numberOfPlayers;
-    private final List<Player> allPlayers;
+    private int roundsPlayed;
+    private final ArrayList<Player> allPlayers;
     private ArrayList<Player> winningPlayers;
     private boolean isCompleted;
 
     // Constructor
-    public Game(int numberOfPlayers, List<Player> allPlayers) {
+    public Game(int numberOfPlayers, ArrayList<Player> allPlayers) {
         this.id = 0;
         this.numberOfPlayers = numberOfPlayers;
+        this.roundsPlayed = 0;
         this.allPlayers = allPlayers;
         this.winningPlayers = new ArrayList<>();
         this.isCompleted = false;
@@ -37,7 +38,7 @@ public class Game {
         return numberOfPlayers;
     }
 
-    public List<Player> getAllPlayers() {
+    public ArrayList<Player> getAllPlayers() {
         return allPlayers;
     }
 
@@ -55,5 +56,13 @@ public class Game {
 
     public void setWinningPlayers(ArrayList<Player> winningPlayers) {
         this.winningPlayers = winningPlayers;
+    }
+
+    public int getRoundsPlayed() {
+        return roundsPlayed;
+    }
+
+    public void setRoundsPlayed(int roundsPlayed) {
+        this.roundsPlayed = roundsPlayed;
     }
 }
