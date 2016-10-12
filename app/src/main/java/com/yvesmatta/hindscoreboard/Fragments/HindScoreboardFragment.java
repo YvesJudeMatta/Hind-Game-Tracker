@@ -237,6 +237,11 @@ public class HindScoreboardFragment extends Fragment {
             EditText etRoundPlayer = createEditView();
             etRoundPlayer.setTag("Round" + round + "Player" + player.getName());
 
+            // If its the first players View, set it to focusable
+            if (player == game.getAllPlayers().get(0)) {
+                etRoundPlayer.requestFocus();
+            }
+
             // if readOnly disable the view, and load the values
             if (readOnly) {
                 etRoundPlayer.setText(player.getScores().get(round-1).toString());
