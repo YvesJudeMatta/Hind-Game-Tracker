@@ -1,40 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/svScoreBoard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
     android:padding="@dimen/activity_all_margin"
-    tools:context=".Fragments.HindScoreboardFragment">
+    >
+    <TableLayout
+        android:id="@+id/tlPlayerNames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/llScoreBoard"
+    </TableLayout>
+
+    <ScrollView
+        android:id="@+id/svScoreBoard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/tlPlayerNames"
+        tools:context=".Fragments.HindScoreboardFragment">
 
-        <TableLayout
-            android:id="@+id/tlScoreBoard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </TableLayout>
-
-        <TableLayout
-            android:id="@+id/tlTotalScores"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </TableLayout>
-
-        <Button
-            android:id="@+id/btnFinish"
+        <LinearLayout
+            android:id="@+id/llScoreBoard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="fragmentAddRound"
-            android:text="@string/plus"
-            android:background="@color/colorAccent"
-            android:textColor="@color/colorButtonText"
-            android:textSize="16sp"/>
-    </LinearLayout>
-</ScrollView>
+            android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/tlScoreBoard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/tlTotalScores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TableLayout>
+
+            <Button
+                android:id="@+id/btnFinish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="fragmentAddRound"
+                android:text="@string/plus"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorButtonText"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

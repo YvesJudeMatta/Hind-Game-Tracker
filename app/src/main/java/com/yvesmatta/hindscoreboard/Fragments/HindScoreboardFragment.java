@@ -2,6 +2,7 @@ package com.yvesmatta.hindscoreboard.Fragments;
 
 import android.app.Fragment;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -50,6 +52,7 @@ public class HindScoreboardFragment extends Fragment {
 
     // Views
     private View view;
+    private TableLayout tlPlayerNames;
     private TableLayout tlScoreBoard;
     private TableLayout tlTotalScores;
     private TableRow.LayoutParams trLPWWHalfWeight;
@@ -83,6 +86,7 @@ public class HindScoreboardFragment extends Fragment {
         showBackButton();
 
         // Retrieve the views for the table layout
+        tlPlayerNames = (TableLayout) view.findViewById(R.id.tlPlayerNames);
         tlScoreBoard = (TableLayout) view.findViewById(R.id.tlScoreBoard);
         tlTotalScores = (TableLayout) view.findViewById(R.id.tlTotalScores);
 
@@ -156,21 +160,22 @@ public class HindScoreboardFragment extends Fragment {
 
     private void updateScoresFromMenu() {
         // Assign the last round
-        lastRound = round - 1;
+        int tempLastRound = lastRound;
 
         // If the game is complete
         if (game.isCompleted()) {
             // Assign the last round to the current round
             lastRound = round;
+            tempLastRound = round;
         }
 
         // If the rounds we want to calculate up to is validated
-        if (validateRowsUpToRound(lastRound)) {
+        if (validateRowsUpToRound(tempLastRound)) {
             // Reset player total scores
             resetPlayerScores();
 
             // Update the total scores
-            updateTotalScoreRow(lastRound);
+            updateTotalScoreRow(tempLastRound);
         }
 
         // Set winners
@@ -228,7 +233,7 @@ public class HindScoreboardFragment extends Fragment {
         }
 
         // Add the row to the table layout
-        tlScoreBoard.addView(trPlayerNamesRow);
+        tlPlayerNames.addView(trPlayerNamesRow);
     }
 
     private void createRoundRow(int round) {
@@ -256,7 +261,7 @@ public class HindScoreboardFragment extends Fragment {
             } else if (action == UPDATE && round <= game.getRoundsPlayed()) {
                 Log.d("Hi", player.getName() + ": " + player.getScores().get(0).toString());
                 etRoundPlayer.setText(player.getScores().get(round - 1).toString());
-            } else if (player == game.getAllPlayers().get(0)) {
+            } else if(player == game.getAllPlayers().get(0)) {
                 etRoundPlayer.requestFocus();
             }
 
@@ -562,7 +567,6 @@ public class HindScoreboardFragment extends Fragment {
 
         // Load the content values with the game data
         ContentValues contentValues = new ContentValues();
-        Log.d("hi", lastRound+"");
         contentValues.put(DBOpenHelper.GAME_COMPLETED, game.isCompleted());
         contentValues.put(DBOpenHelper.GAME_ROUNDS_PLAYED, lastRound);
         contentValues.put(DBOpenHelper.UPDATED_AT, System.currentTimeMillis());
