@@ -43,6 +43,10 @@ import com.yvesmatta.hindscoreboard.Utils.MyUtilities;
 import java.util.ArrayList;
 
 public class HindScoreboardFragment extends Fragment {
+    // Constants
+    private static final int SHOW = 1;
+    private static final int NEW = 2;
+    private static final int UPDATE = 3;
 
     // Views
     private View view;
@@ -56,9 +60,8 @@ public class HindScoreboardFragment extends Fragment {
     private Game game;
     private Uri uri;
     private int round;
-
-    // Fragment to be read only
-    private boolean readOnly;
+    private int lastRound;
+    private int action;
 
     public HindScoreboardFragment() {
         setHasOptionsMenu(true);
@@ -92,11 +95,22 @@ public class HindScoreboardFragment extends Fragment {
         game = MainActivity.game;
         uri = MainActivity.uri;
 
-        // Define round
-        round = 1;
+        // Set the action depending on conditions
+        if (uri != null) {
+            // Load data from database
+            loadFromDatabase();
+            round = game.getRoundsPlayed();
+            lastRound = round;
 
-        // If its a new game or an existing game
-        readOnly = uri != null;
+            if (game.isCompleted()) {
+                action = SHOW;
+            } else {
+                action = UPDATE;
+            }
+        } else {
+            action = NEW;
+            round = 1;
+        }
 
         // Create the score layout
         createScoreLayout();
@@ -112,8 +126,8 @@ public class HindScoreboardFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_scoreboard, menu);
 
-        // Set the visibility depending on readOnly
-        if (readOnly) {
+        // Set the visibility depending on action
+        if (action == SHOW) {
             menu.getItem(0).setVisible(false);
         } else {
             menu.getItem(0).setVisible(true);
@@ -132,7 +146,7 @@ public class HindScoreboardFragment extends Fragment {
         switch (id) {
             case R.id.action_update:
                 // Call the method to update the total score
-                updateScores();
+                updateScoresFromMenu();
                 break;
         }
 
@@ -140,9 +154,9 @@ public class HindScoreboardFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateScores() {
+    private void updateScoresFromMenu() {
         // Assign the last round
-        int lastRound = round - 1;
+        lastRound = round - 1;
 
         // If the game is complete
         if (game.isCompleted()) {
@@ -159,21 +173,18 @@ public class HindScoreboardFragment extends Fragment {
             updateTotalScoreRow(lastRound);
         }
 
+        // Set winners
+        setWinners();
+
         // If the game is complete
         if (game.isCompleted()){
-            // Set winners
-            setWinners();
-
             // Show a dialog of who won
             showWinningPlayersDialog(game.getWinningPlayers());
         }
     }
 
     private void createScoreLayout() {
-        if (readOnly) {
-            // Load data from database
-            loadFromDatabase();
-
+        if (action == SHOW) {
             // Hide button
             Button btnFinish = (Button) view.findViewById(R.id.btnFinish);
             btnFinish.setVisibility(View.INVISIBLE);
@@ -183,8 +194,8 @@ public class HindScoreboardFragment extends Fragment {
         createPlayerNamesRow();
 
         // Create round score row
-        if (readOnly) {
-            for (int r = 1; r <= game.getRoundsPlayed(); r++) {
+        if (action != NEW) {
+            for (int r = 1; r <= round; r++) {
                 createRoundRow(r);
             }
         } else {
@@ -237,15 +248,16 @@ public class HindScoreboardFragment extends Fragment {
             EditText etRoundPlayer = createEditView();
             etRoundPlayer.setTag("Round" + round + "Player" + player.getName());
 
-            // If its the first players View, set it to focusable
-            if (player == game.getAllPlayers().get(0)) {
-                etRoundPlayer.requestFocus();
-            }
-
-            // if readOnly disable the view, and load the values
-            if (readOnly) {
+            // if action is set to SHOW disable the view, and load the values
+            // Otherwise, request the first players view to focus
+            if (action == SHOW) {
                 etRoundPlayer.setText(player.getScores().get(round-1).toString());
                 etRoundPlayer.setFocusable(false);
+            } else if (action == UPDATE && round <= game.getRoundsPlayed()) {
+                Log.d("Hi", player.getName() + ": " + player.getScores().get(0).toString());
+                etRoundPlayer.setText(player.getScores().get(round - 1).toString());
+            } else if (player == game.getAllPlayers().get(0)) {
+                etRoundPlayer.requestFocus();
             }
 
             // Add player score view to row
@@ -254,6 +266,10 @@ public class HindScoreboardFragment extends Fragment {
 
         // Add the row to the table layout
         tlScoreBoard.addView(trPlayerScoresRow);
+
+        if (action == UPDATE && round <= game.getRoundsPlayed()) {
+            greyOutRoundRow(round);
+        }
     }
 
     private void createTotalScoreRow() {
@@ -275,8 +291,8 @@ public class HindScoreboardFragment extends Fragment {
             tvPlayerScore.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorTotalScoreLosing));
             tvPlayerScore.setTag("Player" + player.getName() + "Score");
 
-            // if readOnly disable the view, and load the values
-            if (readOnly) {
+            // if the action is not NEW disable the view, and load the values
+            if (action != NEW) {
                 tvPlayerScore.setText(String.valueOf(player.getTotalScore()));
             }
 
@@ -287,8 +303,8 @@ public class HindScoreboardFragment extends Fragment {
         // Add the row to the table layout
         tlTotalScores.addView(trPlayerTotalScoresRow);
 
-        if (readOnly) {
-            // Set winners
+        // If the action is not NEW
+        if (action != NEW) {
             setWinners();
         }
     }
@@ -363,6 +379,9 @@ public class HindScoreboardFragment extends Fragment {
 
                 // Update game to completed
                 game.setCompleted(true);
+
+                // Assign the last round to the current round
+                lastRound = round;
             } else {
                 // Check if its the second last round
                 if(round == Game.MAX_ROUNDS -1) {
@@ -373,6 +392,7 @@ public class HindScoreboardFragment extends Fragment {
 
                 // Increase the round
                 round++;
+                lastRound = round - 1;
 
                 // Create the round row
                 createRoundRow(round);
@@ -395,7 +415,7 @@ public class HindScoreboardFragment extends Fragment {
             };
 
             // Build the winning players message with a method from the MyUtilities class
-            String winningPlayersMessage = MyUtilities.buildWinningPlayersMessage(winningPlayers);
+            String winningPlayersMessage = MyUtilities.buildWinningPlayersMessage(winningPlayers, round);
 
             // Build the dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -510,10 +530,90 @@ public class HindScoreboardFragment extends Fragment {
     }
 
     public boolean onBackPressed() {
-        if (game.isCompleted() && !readOnly) {
+        if (action == NEW && round > 1) {
             loadDatabase();
+            Toast.makeText(getActivity(), "Game saved", Toast.LENGTH_SHORT).show();
+        } else if (action == UPDATE) {
+            updateDatabase();
+            Toast.makeText(getActivity(), "Game updated", Toast.LENGTH_SHORT).show();
         }
         return true;
+    }
+
+    private void updateDatabase() {
+        // Update game
+        updateGame();
+
+        // Update players
+        updatePlayers();
+
+        // Update winners
+        if (game.isCompleted()) {
+            insertWinners();
+        }
+
+        // Update scores
+        updateScores();
+    }
+
+    private void updateGame() {
+        // Filter
+        String gameFilter = DBOpenHelper.GAME_ID + "=" + game.getId();
+
+        // Load the content values with the game data
+        ContentValues contentValues = new ContentValues();
+        Log.d("hi", lastRound+"");
+        contentValues.put(DBOpenHelper.GAME_COMPLETED, game.isCompleted());
+        contentValues.put(DBOpenHelper.GAME_ROUNDS_PLAYED, lastRound);
+        contentValues.put(DBOpenHelper.UPDATED_AT, System.currentTimeMillis());
+
+        // Update the game in the database depending on filter
+        getActivity().getContentResolver().update(GameProvider.CONTENT_URI, contentValues, gameFilter, null);
+    }
+
+    private void updatePlayers() {
+        // Filters
+        String gameFilter = DBOpenHelper.GAME_FOREIGN_ID + "=" + game.getId();
+
+        for (Player player : game.getAllPlayers()) {
+            // Filters
+            String playerFilter = DBOpenHelper.PLAYER_ID + "=" + player.getId();
+            String filters = gameFilter + " AND " + playerFilter;
+
+            // Load the content values with the player data
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DBOpenHelper.PLAYER_TOTAL_SCORE, player.getTotalScore());
+            contentValues.put(DBOpenHelper.UPDATED_AT, System.currentTimeMillis());
+
+            // Update the players in the database depending on filter
+            getActivity().getContentResolver().update(PlayerProvider.CONTENT_URI, contentValues, filters, null);
+        }
+    }
+
+    private void updateScores() {
+        // Filter
+        String gameFilter = DBOpenHelper.GAME_FOREIGN_ID + "=" + game.getId();
+
+        for (Player player : game.getAllPlayers()) {
+            // Filters
+            String playerFilter = DBOpenHelper.PLAYER_ID + "=" + player.getId();
+            String filters = gameFilter + " AND " + playerFilter;
+
+            for (int r = 1; r <= lastRound; r++){
+                // Load the content values with the player score data
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(DBOpenHelper.ROUND_SCORE_ROUND, r);
+                contentValues.put(DBOpenHelper.ROUND_SCORE_SCORE, player.getScores().get(r-1));
+                contentValues.put(DBOpenHelper.UPDATED_AT, System.currentTimeMillis());
+
+                // Update the winning players in the database depending on filter
+                getActivity().getContentResolver().update(RoundScoreProvider.CONTENT_URI, contentValues, filters, null);
+            }
+        }
+
+        if (game.getRoundsPlayed() < lastRound) {
+            insertScores(game.getRoundsPlayed()+1);
+        }
     }
 
     private void loadDatabase() {
@@ -523,18 +623,20 @@ public class HindScoreboardFragment extends Fragment {
         // Insert players
         insertPlayers();
 
-        // Insert the winners
-        insertWinners();
+        // Insert winners
+        if (game.isCompleted()) {
+            insertWinners();
+        }
 
-        // Insert the scores
-        insertScores();
+        // Insert scores
+        insertScores(1);
     }
 
     private void insertGame() {
         // Load the content values with the game data
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBOpenHelper.GAME_COMPLETED, game.isCompleted());
-        contentValues.put(DBOpenHelper.GAME_ROUNDS_PLAYED, round);
+        contentValues.put(DBOpenHelper.GAME_ROUNDS_PLAYED, lastRound);
         contentValues.put(DBOpenHelper.CREATED_AT, System.currentTimeMillis());
         contentValues.put(DBOpenHelper.UPDATED_AT, System.currentTimeMillis());
 
@@ -570,15 +672,15 @@ public class HindScoreboardFragment extends Fragment {
             contentValues.put(DBOpenHelper.CREATED_AT, System.currentTimeMillis());
             contentValues.put(DBOpenHelper.UPDATED_AT, System.currentTimeMillis());
 
-            // Insert the winning player into the database
+            // Insert the winning players into the database
             getActivity().getContentResolver().insert(GameWinnerProvider.CONTENT_URI, contentValues);
 
         }
     }
 
-    private void insertScores() {
+    private void insertScores(int startRound) {
         for (Player player : game.getAllPlayers()) {
-            for (int r = 1; r <= round; r++){
+            for (int r = startRound; r <= lastRound; r++){
                 // Load the content values with the player score data
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(DBOpenHelper.GAME_FOREIGN_ID, game.getId());

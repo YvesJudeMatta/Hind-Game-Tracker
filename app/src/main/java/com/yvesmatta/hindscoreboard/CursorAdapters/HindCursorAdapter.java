@@ -104,9 +104,10 @@ public class HindCursorAdapter extends CursorAdapter {
         TextView txtWinner = (TextView) view.findViewById(R.id.txtWinner);
 
         // Build the winning players message with a method from the MyUtilities class
-        String winningPlayersMessage = MyUtilities.buildWinningPlayersMessage(winningPlayers);
+        int round = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.GAME_ROUNDS_PLAYED));
+        String winningPlayersMessage = MyUtilities.buildWinningPlayersMessage(winningPlayers, round);
 
-        // Set the winning players message\
+        // Set the winning players message
         txtWinner.setText(winningPlayersMessage);
 
         // Find the TextView
