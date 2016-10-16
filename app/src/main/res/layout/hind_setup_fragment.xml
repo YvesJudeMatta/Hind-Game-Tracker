@@ -38,6 +38,26 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tvRoundsLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rounds"
+        android:textSize="22sp"
+        android:textColor="@color/colorText"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <Spinner
+        android:id="@+id/spinNumberOfRounds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/table_row_vertical_margin"
+        android:layout_marginBottom="@dimen/table_row_vertical_margin"
+        android:padding="@dimen/table_row_all_margin"
+        android:layout_gravity="center"
+        android:textAlignment="center" />
+
     <Button
         android:id="@+id/btnNextFragment"
         android:layout_width="match_parent"

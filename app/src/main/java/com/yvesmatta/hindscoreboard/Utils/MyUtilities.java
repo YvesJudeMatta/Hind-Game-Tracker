@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class MyUtilities {
 
     // Return a String of list of winning players with grammer to display
-    public static String buildWinningPlayersMessage(ArrayList<Player> winningPlayers, int round) {
+    public static String buildWinningPlayersMessage(ArrayList<Player> winningPlayers, int round, boolean isCompleted) {
         // Create a StringBuilder
         StringBuilder builder = new StringBuilder();
 
-        if (round >= Game.MAX_ROUNDS) {
+        if (isCompleted) {
             // Loop for every player in the list
             for (Player player : winningPlayers) {
                 // If its the first instance, only place the name

@@ -272,6 +272,12 @@ public class HindScoreboardFragment extends Fragment {
         // Add the row to the table layout
         tlScoreBoard.addView(trPlayerScoresRow);
 
+        if (game.getMaxRounds() == 1) {
+            // Change the text of the button
+            Button btnFinish = (Button) view.findViewById(R.id.btnFinish);
+            btnFinish.setText(R.string.finish);
+        }
+
         if (action == UPDATE && round <= game.getRoundsPlayed()) {
             greyOutRoundRow(round);
         }
@@ -372,24 +378,24 @@ public class HindScoreboardFragment extends Fragment {
             setWinners();
 
             // Check which if its the last round
-            if (round == Game.MAX_ROUNDS) {
+            if (round == game.getMaxRounds()) {
                 // Grey out the current round
                 greyOutRoundRow(round);
 
                 // Make the button invisible
                 view.setVisibility(View.INVISIBLE);
 
-                // Show a dialog of who won
-                showWinningPlayersDialog(game.getWinningPlayers());
-
                 // Update game to completed
                 game.setCompleted(true);
+
+                // Show a dialog of who won
+                showWinningPlayersDialog(game.getWinningPlayers());
 
                 // Assign the last round to the current round
                 lastRound = round;
             } else {
                 // Check if its the second last round
-                if(round == Game.MAX_ROUNDS -1) {
+                if(round == game.getMaxRounds() - 1) {
                     // Change the text of the button
                     Button btnFinish = (Button) view.findViewById(R.id.btnFinish);
                     btnFinish.setText(R.string.finish);
@@ -420,7 +426,7 @@ public class HindScoreboardFragment extends Fragment {
             };
 
             // Build the winning players message with a method from the MyUtilities class
-            String winningPlayersMessage = MyUtilities.buildWinningPlayersMessage(winningPlayers, round);
+            String winningPlayersMessage = MyUtilities.buildWinningPlayersMessage(winningPlayers, round, game.isCompleted());
 
             // Build the dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -535,7 +541,7 @@ public class HindScoreboardFragment extends Fragment {
     }
 
     public boolean onBackPressed() {
-        if (action == NEW && round > 1) {
+        if (action == NEW && game.isCompleted()) {
             loadDatabase();
             Toast.makeText(getActivity(), "Game saved", Toast.LENGTH_SHORT).show();
         } else if (action == UPDATE) {

@@ -31,10 +31,12 @@ public class HindSetupFragment extends Fragment {
     private LinearLayout llPlayers;
     private ViewGroup.LayoutParams lpMW;
     private Spinner spinNumberOfPlayers;
+    private Spinner spinNumberOfRounds;
 
     // Game
     private Game game = null;
     private int numberOfPlayers;
+    private int maxRounds;
     private ArrayList<Player> allPlayers;
 
     @Nullable
@@ -54,6 +56,7 @@ public class HindSetupFragment extends Fragment {
 
         // Retrieve views from layout
         spinNumberOfPlayers = (Spinner) view.findViewById(R.id.spinNumberOfPlayers);
+        spinNumberOfRounds = (Spinner) view.findViewById(R.id.spinNumberOfRounds);
 
         // Options for the spinner
         ArrayList<String> numberOfPlayers = new ArrayList<>();
@@ -64,11 +67,11 @@ public class HindSetupFragment extends Fragment {
         }
 
         // Initialize the array adapter
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, numberOfPlayers);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> spinnerPlayersArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, numberOfPlayers);
+        spinnerPlayersArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         // Assign the array adapter to the spinner
-        spinNumberOfPlayers.setAdapter(spinnerArrayAdapter);
+        spinNumberOfPlayers.setAdapter(spinnerPlayersArrayAdapter);
         spinNumberOfPlayers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
@@ -80,6 +83,37 @@ public class HindSetupFragment extends Fragment {
 
                 // generate the number of selected views
                 generatePlayerViews(selectedNumberOfPlayers);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        // Options for the spinner
+        ArrayList<String> numberOfRounds = new ArrayList<>();
+        int numberOfRoundsToPick = 10;
+
+        // Add the options for the spinner
+        for (int i = 1; i <= numberOfRoundsToPick; i++) {
+            numberOfRounds.add(i + "");
+        }
+
+        // Initialize the array adapter
+        ArrayAdapter<String> spinnerRoundsArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, numberOfRounds);
+        spinnerRoundsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        // Assign the array adapter to the spinner
+        spinNumberOfRounds.setAdapter(spinnerRoundsArrayAdapter);
+        spinNumberOfRounds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
+                // Get the selected option from the spinner
+                int selectedNumberOfRounds = Integer.parseInt(parent.getItemAtPosition(pos).toString());
+
+                // Set the number of max rounds
+                maxRounds = selectedNumberOfRounds;
             }
 
             @Override
@@ -138,6 +172,7 @@ public class HindSetupFragment extends Fragment {
     public Game setupGame() {
         if (validatePlayers()) {
             game = new Game(numberOfPlayers, allPlayers);
+            game.setMaxRounds(maxRounds);
         }
         return game;
     }

@@ -6,13 +6,13 @@ public class Game {
 
     // Constants
     public static final int MAX_NUMBER_OF_PLAYERS = 5;
-    public static final int MAX_ROUNDS = 8;
     public static final int MIN_NUMBER_OF_PLAYERS = 2;
 
     // Class variables
     private int id;
     private final int numberOfPlayers;
     private int roundsPlayed;
+    private int maxRounds;
     private final ArrayList<Player> allPlayers;
     private ArrayList<Player> winningPlayers;
     private boolean isCompleted;
@@ -22,6 +22,7 @@ public class Game {
         this.id = 0;
         this.numberOfPlayers = numberOfPlayers;
         this.roundsPlayed = 0;
+        this.maxRounds = 10;
         this.allPlayers = allPlayers;
         this.winningPlayers = new ArrayList<>();
         this.isCompleted = false;
@@ -64,5 +65,13 @@ public class Game {
 
     public void setRoundsPlayed(int roundsPlayed) {
         this.roundsPlayed = roundsPlayed;
+    }
+
+    public int getMaxRounds() {
+        return maxRounds;
+    }
+
+    public void setMaxRounds(int maxRounds) {
+        this.maxRounds = maxRounds;
     }
 }

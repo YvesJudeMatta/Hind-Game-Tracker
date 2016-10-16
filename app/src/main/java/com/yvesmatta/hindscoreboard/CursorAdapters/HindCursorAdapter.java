@@ -105,7 +105,12 @@ public class HindCursorAdapter extends CursorAdapter {
 
         // Build the winning players message with a method from the MyUtilities class
         int round = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.GAME_ROUNDS_PLAYED));
-        String winningPlayersMessage = MyUtilities.buildWinningPlayersMessage(winningPlayers, round);
+        boolean isCompleted = false;
+        int completed = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.GAME_COMPLETED));
+        if (completed == 1) {
+            isCompleted = true;
+        }
+        String winningPlayersMessage = MyUtilities.buildWinningPlayersMessage(winningPlayers, round, isCompleted);
 
         // Set the winning players message
         txtWinner.setText(winningPlayersMessage);

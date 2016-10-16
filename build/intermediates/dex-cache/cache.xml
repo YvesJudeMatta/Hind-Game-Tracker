@@ -88,7 +88,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.1"
-        sha1="2012e7d3a1108fb823a871aadea83745b4d5e232">
+        sha1="e56730344cef16f0db1c702a8a8a35944f124393">
         <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_d1a7ac280098d28a651b71765401bb75d998b8e8\classes.dex" />
     </item>
     <item
@@ -160,7 +160,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.1"
-        sha1="9735ff85c7a3e6024cbda4bc81b1419ab76933ac">
+        sha1="e6ce8fc2968c94d44f683ec9927db7b39aff5031">
         <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_cd97ae4dacaabd53255e98ff689d2046a86eec3b\classes.dex" />
     </item>
     <item
