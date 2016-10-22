@@ -19,6 +19,7 @@
         android:layout_toEndOf="@+id/imgGameIcon"
         android:layout_toRightOf="@+id/imgGameIcon"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:text="@string/dummy_text"
         android:textStyle="bold"
         android:textSize="18sp"/>
@@ -31,6 +32,7 @@
         android:layout_toRightOf="@+id/imgGameIcon"
         android:layout_below="@+id/txtWinner"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:text="@string/dummy_text"
         android:textSize="13sp"/>
 </RelativeLayout>

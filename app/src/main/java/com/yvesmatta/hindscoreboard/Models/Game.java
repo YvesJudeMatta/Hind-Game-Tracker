@@ -1,4 +1,4 @@
-package com.yvesmatta.hindscoreboard.Models;
+package com.yvesmatta.hindscoreboard.models;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,6 @@ public class Game {
 
     // Class variables
     private int id;
-    private final int numberOfPlayers;
     private int roundsPlayed;
     private int maxRounds;
     private final ArrayList<Player> allPlayers;
@@ -18,9 +17,8 @@ public class Game {
     private boolean isCompleted;
 
     // Constructor
-    public Game(int numberOfPlayers, ArrayList<Player> allPlayers) {
+    public Game(ArrayList<Player> allPlayers) {
         this.id = 0;
-        this.numberOfPlayers = numberOfPlayers;
         this.roundsPlayed = 0;
         this.maxRounds = 10;
         this.allPlayers = allPlayers;
@@ -33,10 +31,6 @@ public class Game {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
     }
 
     public ArrayList<Player> getAllPlayers() {

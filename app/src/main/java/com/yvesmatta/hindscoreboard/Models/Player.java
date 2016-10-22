@@ -1,4 +1,4 @@
-package com.yvesmatta.hindscoreboard.Models;
+package com.yvesmatta.hindscoreboard.models;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class Player {
 
     // Class variables
     private int id;
-    private String name;
+    private final String name;
     private ArrayList<Integer> scores;
     private int totalScore;
 

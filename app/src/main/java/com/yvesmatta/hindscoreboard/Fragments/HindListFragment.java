@@ -1,8 +1,7 @@
-package com.yvesmatta.hindscoreboard.Fragments;
+package com.yvesmatta.hindscoreboard.fragments;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Loader;
@@ -23,13 +22,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.yvesmatta.hindscoreboard.CursorAdapters.HindCursorAdapter;
-import com.yvesmatta.hindscoreboard.DBOpenHelper;
+import com.yvesmatta.hindscoreboard.cursoradapters.HindCursorAdapter;
 import com.yvesmatta.hindscoreboard.MainActivity;
-import com.yvesmatta.hindscoreboard.Providers.GameProvider;
-import com.yvesmatta.hindscoreboard.Providers.GameWinnerProvider;
-import com.yvesmatta.hindscoreboard.Providers.PlayerProvider;
-import com.yvesmatta.hindscoreboard.Providers.RoundScoreProvider;
+import com.yvesmatta.hindscoreboard.providers.GameProvider;
+import com.yvesmatta.hindscoreboard.providers.GameWinnerProvider;
+import com.yvesmatta.hindscoreboard.providers.PlayerProvider;
+import com.yvesmatta.hindscoreboard.providers.RoundScoreProvider;
 import com.yvesmatta.hindscoreboard.R;
 
 public class HindListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -69,7 +67,7 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 MainActivity.uri = Uri.parse(GameProvider.CONTENT_URI + "/" + id);
-                MainActivity.loadScoreboardFragmentReadOnly();
+                ((MainActivity) getActivity()).loadScoreboardFragmentReadOnly();
             }
         });
 
@@ -149,7 +147,7 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
         }
     }
 
-    public void restartLoader() {
+    private void restartLoader() {
         getLoaderManager().restartLoader(0, null, this);
     }
 

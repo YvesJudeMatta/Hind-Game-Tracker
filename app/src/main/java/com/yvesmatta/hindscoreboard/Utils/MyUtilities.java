@@ -1,7 +1,6 @@
-package com.yvesmatta.hindscoreboard.Utils;
+package com.yvesmatta.hindscoreboard.utils;
 
-import com.yvesmatta.hindscoreboard.Models.Game;
-import com.yvesmatta.hindscoreboard.Models.Player;
+import com.yvesmatta.hindscoreboard.models.Player;
 
 import java.util.ArrayList;
 
@@ -33,7 +32,8 @@ public class MyUtilities {
                 builder.append(" won the game!");
             }
         } else {
-            builder.append("Game is on round " + round + "...");
+            String onRound = "Game is on round " + round + "...";
+            builder.append(onRound);
         }
 
         // Return the String from the StringBuilder

@@ -1,20 +1,19 @@
-package com.yvesmatta.hindscoreboard.CursorAdapters;
+package com.yvesmatta.hindscoreboard.cursoradapters;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yvesmatta.hindscoreboard.DBOpenHelper;
-import com.yvesmatta.hindscoreboard.Models.Player;
-import com.yvesmatta.hindscoreboard.Providers.GameWinnerProvider;
-import com.yvesmatta.hindscoreboard.Providers.PlayerProvider;
 import com.yvesmatta.hindscoreboard.R;
-import com.yvesmatta.hindscoreboard.Utils.MyUtilities;
+import com.yvesmatta.hindscoreboard.models.Player;
+import com.yvesmatta.hindscoreboard.providers.GameWinnerProvider;
+import com.yvesmatta.hindscoreboard.providers.PlayerProvider;
+import com.yvesmatta.hindscoreboard.utils.MyUtilities;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -33,7 +32,7 @@ public class HindCursorAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         // return the inflated view
-        return LayoutInflater.from(context).inflate(R.layout.hind_list_item, viewGroup, false );
+        return LayoutInflater.from(context).inflate(R.layout.hind_list_item, viewGroup, false);
     }
 
     @Override
@@ -62,8 +61,6 @@ public class HindCursorAdapter extends CursorAdapter {
 
             // Close the cursor
             gameWinnerCursor.close();
-        } else {
-            Log.d("HindCursorAdapter", "GameWinnerCursor is null");
         }
 
 
@@ -87,8 +84,6 @@ public class HindCursorAdapter extends CursorAdapter {
 
                 // Close the cursor
                 winningPlayerCursor.close();
-            } else {
-                Log.d("HindCursorAdapter", "winningPlayerCursor is null");
             }
         }
 
@@ -97,7 +92,6 @@ public class HindCursorAdapter extends CursorAdapter {
             date = dateFormat.parse(dateFormat.format(date));
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e("HindCursorAdapter", e.getMessage());
         }
 
         // Find the TextView
@@ -119,6 +113,7 @@ public class HindCursorAdapter extends CursorAdapter {
         TextView txtDateWon = (TextView) view.findViewById(R.id.txtDateWon);
 
         // Set the formatted date
-        txtDateWon.setText("Date: " + dateFormat.format(date));
+        String formattedDate = "Date: " + dateFormat.format(date);
+        txtDateWon.setText(formattedDate);
     }
 }

@@ -17,10 +17,10 @@
     <string name="finish">Finish</string>
     <string name="please_fill_in_all_fields">Please fill in all fields</string>
     <string name="okay">Okay</string>
-    <string name="tie">Tie!</string>
     <string name="update">Update</string>
     <string name="game">game:</string>
     <string name="delete_all_games">Delete all games</string>
     <string name="dummy_text">Dummy Text</string>
+    <string name="rounds">Rounds</string>
     <!-- /HindScoreboardFragment -->
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_all_margin"
-    tools:context=".Fragments.HindListFragment">
+    tools:context=".fragments.HindListFragment">
 
     <ListView
         android:id="@+id/android:list"

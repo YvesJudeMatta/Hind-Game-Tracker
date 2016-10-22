@@ -1,4 +1,4 @@
-package com.yvesmatta.hindscoreboard.Fragments;
+package com.yvesmatta.hindscoreboard.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.yvesmatta.hindscoreboard.Models.Game;
-import com.yvesmatta.hindscoreboard.Models.Player;
+import com.yvesmatta.hindscoreboard.models.Game;
+import com.yvesmatta.hindscoreboard.models.Player;
 import com.yvesmatta.hindscoreboard.R;
 
 import java.util.ArrayList;
@@ -31,11 +31,9 @@ public class HindSetupFragment extends Fragment {
     private LinearLayout llPlayers;
     private ViewGroup.LayoutParams lpMW;
     private Spinner spinNumberOfPlayers;
-    private Spinner spinNumberOfRounds;
 
     // Game
     private Game game = null;
-    private int numberOfPlayers;
     private int maxRounds;
     private ArrayList<Player> allPlayers;
 
@@ -56,7 +54,7 @@ public class HindSetupFragment extends Fragment {
 
         // Retrieve views from layout
         spinNumberOfPlayers = (Spinner) view.findViewById(R.id.spinNumberOfPlayers);
-        spinNumberOfRounds = (Spinner) view.findViewById(R.id.spinNumberOfRounds);
+        Spinner spinNumberOfRounds = (Spinner) view.findViewById(R.id.spinNumberOfRounds);
 
         // Options for the spinner
         ArrayList<String> numberOfPlayers = new ArrayList<>();
@@ -109,11 +107,8 @@ public class HindSetupFragment extends Fragment {
         spinNumberOfRounds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
-                // Get the selected option from the spinner
-                int selectedNumberOfRounds = Integer.parseInt(parent.getItemAtPosition(pos).toString());
-
-                // Set the number of max rounds
-                maxRounds = selectedNumberOfRounds;
+                // Get the selected option from the spinner and set the max round
+                maxRounds = Integer.parseInt(parent.getItemAtPosition(pos).toString());
             }
 
             @Override
@@ -171,7 +166,7 @@ public class HindSetupFragment extends Fragment {
 
     public Game setupGame() {
         if (validatePlayers()) {
-            game = new Game(numberOfPlayers, allPlayers);
+            game = new Game(allPlayers);
             game.setMaxRounds(maxRounds);
         }
         return game;
@@ -179,7 +174,7 @@ public class HindSetupFragment extends Fragment {
 
     private boolean validatePlayers() {
         // Initialize with no players
-        numberOfPlayers = 0;
+        int numberOfPlayers = 0;
 
         int numberOfPlayersSelected = Integer.parseInt(spinNumberOfPlayers.getSelectedItem().toString());
         for (int i = 1; i <= numberOfPlayersSelected; i++) {
@@ -212,7 +207,7 @@ public class HindSetupFragment extends Fragment {
             return false;
         }
 
-        // Return true if everythign is okay
+        // Return true if everything is okay
         return true;
     }
 
@@ -231,7 +226,7 @@ public class HindSetupFragment extends Fragment {
             } else {
                 // Loop until it has reached tempSize
                 for (int i = 0; i < tempSize; i++) {
-                    // Check the list of names to see if the plauer name is identical
+                    // Check the list of names to see if the player name is identical
                     // otherwise, add it ot the list of names
                     if (player.getName().equals(names.get(i))) {
                         return false;

@@ -8,18 +8,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.yvesmatta.hindscoreboard.Fragments.HindListFragment;
-import com.yvesmatta.hindscoreboard.Fragments.HindScoreboardFragment;
-import com.yvesmatta.hindscoreboard.Fragments.HindSetupFragment;
-import com.yvesmatta.hindscoreboard.Models.Game;
+import com.yvesmatta.hindscoreboard.fragments.HindListFragment;
+import com.yvesmatta.hindscoreboard.fragments.HindScoreboardFragment;
+import com.yvesmatta.hindscoreboard.fragments.HindSetupFragment;
+import com.yvesmatta.hindscoreboard.models.Game;
 
 public class MainActivity extends AppCompatActivity {
 
     // Fragments
-    private static FragmentManager fragmentManager;
-    private static HindListFragment hindListFragment;
-    private static HindSetupFragment hindSetupFragment;
-    private static HindScoreboardFragment hindScoreboardFragment;
+    private FragmentManager fragmentManager;
+    private HindListFragment hindListFragment;
+    private HindSetupFragment hindSetupFragment;
+    private HindScoreboardFragment hindScoreboardFragment;
 
     // Game
     public static Game game = null;
@@ -68,11 +68,10 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         // Skip the hindSetupFragment when the hindScoreboardFragment is visible on back pressed
         if (hindScoreboardFragment != null && hindScoreboardFragment.isVisible()) {
-            if (hindScoreboardFragment.onBackPressed()) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frgContainer, hindListFragment)
-                        .commit();
-            }
+            hindScoreboardFragment.onBackPressed();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frgContainer, hindListFragment)
+                    .commit();
         } else {
             super.onBackPressed();
         }
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Load the GamePlayFragment from list view on item click
-    public static void loadScoreboardFragmentReadOnly() {
+    public void loadScoreboardFragmentReadOnly() {
         // Replace fragment in frgContainer with new fragment and commit the transaction
         hindScoreboardFragment = new HindScoreboardFragment();
         fragmentManager.beginTransaction()

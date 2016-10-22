@@ -1,4 +1,4 @@
-package com.yvesmatta.hindscoreboard.Providers;
+package com.yvesmatta.hindscoreboard.providers;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

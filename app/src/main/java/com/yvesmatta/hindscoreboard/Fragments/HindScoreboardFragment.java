@@ -1,8 +1,7 @@
-package com.yvesmatta.hindscoreboard.Fragments;
+package com.yvesmatta.hindscoreboard.fragments;
 
 import android.app.Fragment;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -15,7 +14,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,7 +21,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -33,14 +30,14 @@ import android.widget.Toast;
 
 import com.yvesmatta.hindscoreboard.DBOpenHelper;
 import com.yvesmatta.hindscoreboard.MainActivity;
-import com.yvesmatta.hindscoreboard.Models.Game;
-import com.yvesmatta.hindscoreboard.Models.Player;
-import com.yvesmatta.hindscoreboard.Providers.GameProvider;
-import com.yvesmatta.hindscoreboard.Providers.GameWinnerProvider;
-import com.yvesmatta.hindscoreboard.Providers.PlayerProvider;
-import com.yvesmatta.hindscoreboard.Providers.RoundScoreProvider;
+import com.yvesmatta.hindscoreboard.models.Game;
+import com.yvesmatta.hindscoreboard.models.Player;
+import com.yvesmatta.hindscoreboard.providers.GameProvider;
+import com.yvesmatta.hindscoreboard.providers.GameWinnerProvider;
+import com.yvesmatta.hindscoreboard.providers.PlayerProvider;
+import com.yvesmatta.hindscoreboard.providers.RoundScoreProvider;
 import com.yvesmatta.hindscoreboard.R;
-import com.yvesmatta.hindscoreboard.Utils.MyUtilities;
+import com.yvesmatta.hindscoreboard.utils.MyUtilities;
 
 import java.util.ArrayList;
 
@@ -252,15 +249,17 @@ public class HindScoreboardFragment extends Fragment {
             // Create the player score view
             EditText etRoundPlayer = createEditView();
             etRoundPlayer.setTag("Round" + round + "Player" + player.getName());
+            String playerScore;
 
             // if action is set to SHOW disable the view, and load the values
             // Otherwise, request the first players view to focus
             if (action == SHOW) {
-                etRoundPlayer.setText(player.getScores().get(round-1).toString());
+                playerScore = player.getScores().get(round - 1).toString();
+                etRoundPlayer.setText(playerScore);
                 etRoundPlayer.setFocusable(false);
             } else if (action == UPDATE && round <= game.getRoundsPlayed()) {
-                Log.d("Hi", player.getName() + ": " + player.getScores().get(0).toString());
-                etRoundPlayer.setText(player.getScores().get(round - 1).toString());
+                playerScore = player.getScores().get(round - 1).toString();
+                etRoundPlayer.setText(playerScore);
             } else if(player == game.getAllPlayers().get(0)) {
                 etRoundPlayer.requestFocus();
             }
@@ -534,21 +533,20 @@ public class HindScoreboardFragment extends Fragment {
         player.addScore(roundScore);
     }
 
-    public void showBackButton() {
+    private void showBackButton() {
         if (getActivity() instanceof AppCompatActivity) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
-    public boolean onBackPressed() {
-        if (action == NEW && game.isCompleted()) {
+    public void onBackPressed() {
+        if (action == NEW) {
             loadDatabase();
             Toast.makeText(getActivity(), "Game saved", Toast.LENGTH_SHORT).show();
         } else if (action == UPDATE) {
             updateDatabase();
             Toast.makeText(getActivity(), "Game updated", Toast.LENGTH_SHORT).show();
         }
-        return true;
     }
 
     private void updateDatabase() {
@@ -647,6 +645,7 @@ public class HindScoreboardFragment extends Fragment {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBOpenHelper.GAME_COMPLETED, game.isCompleted());
         contentValues.put(DBOpenHelper.GAME_ROUNDS_PLAYED, lastRound);
+        contentValues.put(DBOpenHelper.GAME_MAX_ROUNDS, game.getMaxRounds());
         contentValues.put(DBOpenHelper.CREATED_AT, System.currentTimeMillis());
         contentValues.put(DBOpenHelper.UPDATED_AT, System.currentTimeMillis());
 
@@ -800,6 +799,7 @@ public class HindScoreboardFragment extends Fragment {
             // Get data from the database
             int id = gameCursor.getInt(gameCursor.getColumnIndex(DBOpenHelper.GAME_ID));
             int completed = gameCursor.getInt(gameCursor.getColumnIndex(DBOpenHelper.GAME_COMPLETED));
+            int maxRounds = gameCursor.getInt(gameCursor.getColumnIndex(DBOpenHelper.GAME_MAX_ROUNDS));
             int roundsPlayed = gameCursor.getInt(gameCursor.getColumnIndex(DBOpenHelper.GAME_ROUNDS_PLAYED));
             boolean isCompleted = false;
 
@@ -808,8 +808,9 @@ public class HindScoreboardFragment extends Fragment {
             }
 
             // Create the game
-            game = new Game(players.size(), players);
+            game = new Game(players);
             game.setId(id);
+            game.setMaxRounds(maxRounds);
             game.setRoundsPlayed(roundsPlayed);
             game.setCompleted(isCompleted);
 

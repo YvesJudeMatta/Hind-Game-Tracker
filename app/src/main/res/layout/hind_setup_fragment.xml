@@ -8,7 +8,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:padding="@dimen/activity_all_margin"
-    tools:context=".Fragments.HindSetupFragment">
+    tools:context=".fragments.HindSetupFragment">
 
     <TextView
         android:id="@+id/tvPlayersLabel"
@@ -42,7 +42,7 @@
         android:id="@+id/tvRoundsLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rounds"
+        android:text="@string/rounds"
         android:textSize="22sp"
         android:textColor="@color/colorText"
         android:textStyle="bold"

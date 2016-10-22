@@ -26,6 +26,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String GAME_ID = "_id";
     public static final String GAME_COMPLETED = "completed";
     public static final String GAME_ROUNDS_PLAYED = "rounds_played";
+    public static final String GAME_MAX_ROUNDS = "max_rounds";
 
     // SQL to create the game table
     private static final String GAME_TABLE_CREATE =
@@ -33,6 +34,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             GAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             GAME_COMPLETED + " BIT, " +
             GAME_ROUNDS_PLAYED + " INTEGER, " +
+            GAME_MAX_ROUNDS + " INTEGER, " +
             CREATED_AT + " DATETIME, " +
             UPDATED_AT + " DATETIME);";
 
