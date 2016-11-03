@@ -82,6 +82,9 @@ public class HindScoreboardFragment extends Fragment {
         // Show the back butting in the menu bar
         showBackButton();
 
+        // Set the title
+        getActivity().setTitle(getString(R.string.scores));
+
         // Retrieve the views for the table layout
         tlPlayerNames = (TableLayout) view.findViewById(R.id.tlPlayerNames);
         tlScoreBoard = (TableLayout) view.findViewById(R.id.tlScoreBoard);

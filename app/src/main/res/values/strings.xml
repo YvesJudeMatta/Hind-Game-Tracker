@@ -22,5 +22,12 @@
     <string name="delete_all_games">Delete all games</string>
     <string name="dummy_text">Dummy Text</string>
     <string name="rounds">Rounds</string>
+    <string name="about_hind">About Hind</string>
+    <string name="about_hind_text">
+        About hind...
+    </string>
+    <string name="games">Games</string>
+    <string name="scores">Scores</string>
+    <string name="setup">Setup</string>
     <!-- /HindScoreboardFragment -->
 </resources>

@@ -46,6 +46,9 @@ public class HindSetupFragment extends Fragment {
         // Show the back butting in the menu bar
         showBackButton();
 
+        // Set the title
+        getActivity().setTitle(getString(R.string.setup));
+
         // Retrieve the views for the table layout
         llPlayers = (LinearLayout) view.findViewById(R.id.llPlayers);
 

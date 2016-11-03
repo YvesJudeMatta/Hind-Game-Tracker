@@ -55,6 +55,9 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
         // Hide the back button
         hideBackButton();
 
+        // Set the title
+        getActivity().setTitle(getString(R.string.games));
+
         // Initialize the custom adapter
         cursorAdapter = new HindCursorAdapter(getActivity(), null, 0);
 
@@ -97,6 +100,9 @@ public class HindListFragment extends Fragment implements LoaderManager.LoaderCa
             case R.id.action_delete_all:
                 // Call the method to delete all the games
                 deleteAllGames();
+                break;
+            case R.id.action_about_hind:
+                ((MainActivity) getActivity()).loadAboutFragment();
                 break;
         }
 

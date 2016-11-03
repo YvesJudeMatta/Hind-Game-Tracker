@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.yvesmatta.hindscoreboard.fragments.HindAboutFragment;
 import com.yvesmatta.hindscoreboard.fragments.HindListFragment;
 import com.yvesmatta.hindscoreboard.fragments.HindScoreboardFragment;
 import com.yvesmatta.hindscoreboard.fragments.HindSetupFragment;
@@ -111,6 +112,16 @@ public class MainActivity extends AppCompatActivity {
         hindScoreboardFragment = new HindScoreboardFragment();
         fragmentManager.beginTransaction()
                 .replace(R.id.frgContainer, hindScoreboardFragment)
+                .commit();
+    }
+
+    // Load the HindAboutFragment from list view on menu item click
+    public void loadAboutFragment() {
+        // Replace fragment in frgContainer with new fragment and commit the transaction
+        HindAboutFragment hindAboutFragment = new HindAboutFragment();
+        fragmentManager.beginTransaction()
+                .replace(R.id.frgContainer, hindAboutFragment)
+                .addToBackStack(hindListFragment.getClass().getName())
                 .commit();
     }
 

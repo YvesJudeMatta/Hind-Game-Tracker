@@ -10,4 +10,10 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_about_hind"
+        android:title="@string/about_hind"
+        android:orderInCategory="101"
+        app:showAsAction="never" />
+
 </menu>
