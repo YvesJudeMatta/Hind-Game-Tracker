@@ -156,23 +156,14 @@ public class HindScoreboardFragment extends Fragment {
     }
 
     private void updateScoresFromMenu() {
-        // Assign the last round
-        int tempLastRound = lastRound;
-
-        // If the game is complete
-        if (game.isCompleted()) {
-            // Assign the last round to the current round
-            lastRound = round;
-            tempLastRound = round;
-        }
 
         // If the rounds we want to calculate up to is validated
-        if (validateRowsUpToRound(tempLastRound)) {
+        if (validateRowsUpToRound(lastRound)) {
             // Reset player total scores
             resetPlayerScores();
 
             // Update the total scores
-            updateTotalScoreRow(tempLastRound);
+            updateTotalScoreRow(lastRound);
         }
 
         // Set winners
@@ -392,6 +383,7 @@ public class HindScoreboardFragment extends Fragment {
 
                 // Assign the last round to the current round
                 lastRound = round;
+                round++;
             } else {
                 // Check if its the second last round
                 if(round == game.getMaxRounds() - 1) {
@@ -540,7 +532,7 @@ public class HindScoreboardFragment extends Fragment {
     }
 
     public void onBackPressed() {
-        if (action == NEW) {
+        if (action == NEW && round > 1) {
             loadDatabase();
             Toast.makeText(getActivity(), "Game saved", Toast.LENGTH_SHORT).show();
         } else if (action == UPDATE) {

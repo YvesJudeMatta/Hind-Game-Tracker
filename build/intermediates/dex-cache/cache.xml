@@ -2,175 +2,157 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-24.2.1_b3a52da43f77a3e6a6599da1bd99b106841a0815\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_5187dbdb195003c257454a610349ba31ff69bb19\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.2.1_a87f5e4704a17b51757c45c2a61f2485d7af4425\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.1_d2dffb4d9e2c0cb0df1cdffbfca6c9f6d44c09b6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_d705f72293533db535e749f6b4f047822d8f76f8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.2.1_fa0590c8904822da91f62bc565353a69c2d4998c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-24.2.1_3bb258f5f322165a0af117959321e6422f3b08dc\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_5b30d072cb1ea5679666309ebe8b24948b288314\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.2.1_d0df6d35cbd9c2927928aec0660283e75d6ec25a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="296c551306b19d7b36023a24110d8b6b06b42178">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_d1a7ac280098d28a651b71765401bb75d998b8e8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-24.2.1_424111d96d60d8e5631a11f89de5d4027ad64d0e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.2.1_cdd3cd4285a955f4975d21e7ea10048f6e3aca3e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.2.1_a852902f8d5b809400ed002ef54cb0f61197f9f7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-24.2.1_de750b2cd8c9b4049eacaf665fe7a18d68d86bc9\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_3d89786097f390a46a056a3790297bdbe8f305e5\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="24.0.1"
         sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.2.1_89ebc13de4593976fddc34a523424f5fed6ddd5d\classes.dex" />
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-24.2.1_89ebc13de4593976fddc34a523424f5fed6ddd5d.jar" />
     </item>
     <item
-        is-multidex="true"
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.2.1_fa0590c8904822da91f62bc565353a69c2d4998c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-24.2.1_b3a52da43f77a3e6a6599da1bd99b106841a0815.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.1_a852902f8d5b809400ed002ef54cb0f61197f9f7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_5187dbdb195003c257454a610349ba31ff69bb19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-24.2.1_de750b2cd8c9b4049eacaf665fe7a18d68d86bc9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_d705f72293533db535e749f6b4f047822d8f76f8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.2.1_d2dffb4d9e2c0cb0df1cdffbfca6c9f6d44c09b6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.2.1_cdd3cd4285a955f4975d21e7ea10048f6e3aca3e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-design-24.2.1_a87f5e4704a17b51757c45c2a61f2485d7af4425.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-24.2.1_3bb258f5f322165a0af117959321e6422f3b08dc.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="24.0.1"
         sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-24.2.1_9ae79c9ca673b5005f8d57e81d3d82c7dc0ab7e4\classes.dex" />
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-24.2.1_9ae79c9ca673b5005f8d57e81d3d82c7dc0ab7e4.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="24.0.1"
-        sha1="21afc1b78a79e911fb2f98cfdd502788d3ab22ce">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_cd97ae4dacaabd53255e98ff689d2046a86eec3b\classes.dex" />
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_3d89786097f390a46a056a3790297bdbe8f305e5.jar" />
     </item>
     <item
-        is-multidex="true"
+        is-multidex="false"
+        jar="D:\yvesm\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\support-annotations-24.2.1_d0df6d35cbd9c2927928aec0660283e75d6ec25a.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="24.0.1"
         sha1="867dad63c33388ff8c7644b236579355036d075f">
-        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_72b9b649384e80d5d6a63fc1fc556a1f958405d6\classes.dex" />
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_72b9b649384e80d5d6a63fc1fc556a1f958405d6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-24.2.1_424111d96d60d8e5631a11f89de5d4027ad64d0e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="D:\yvesm\Projects\Android\HindScoreboard\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_5b30d072cb1ea5679666309ebe8b24948b288314.jar" />
     </item>
 
 </items>
